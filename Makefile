@@ -6,7 +6,7 @@
 #    By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 13:59:31 by kfergani          #+#    #+#              #
-#    Updated: 2022/11/06 18:34:12 by kfergani         ###   ########.fr        #
+#    Updated: 2022/11/09 19:14:30 by kfergani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ MLX			= ./mlx/libmlx.a
 OBJECTS 	= $(patsubst %.c, %.o, $(SOURCES))
 
 CC			= 	gcc
-CFLAGS 		= -Wall -Wextra -Werror
+CFLAGS 		= 
 MLXFLAGS	= -Lmlx -lmlx -framework OpenGL -framework AppKit -lz
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/08 17:43:36 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/10 19:31:15 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
+#include <string.h>
+# include <limits.h>
+#include <float.h>
 
+#define width 512
+#define height 512
 typedef	struct s_point
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }	t_point;
 
 typedef	struct s_scene
@@ -54,9 +59,17 @@ typedef	struct s_window
 	void	*mlx;
 	void	*win;
 	t_image	*image;
-	t_point	player;
-	t_point	
+	t_point	pos;
+	t_point	dir;
+	t_point	plan;
+		
 }	t_window;
+
+typedef	struct s_global
+{
+	t_window	*wind;
+	t_scene		*scene;
+} t_global;
 
 void	print_err(char *err);
 t_scene	*parse_scene_file(char	*file);
