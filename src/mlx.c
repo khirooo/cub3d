@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:40:13 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/09 19:22:26 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:53:07 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,35 @@ int	window_init(t_window **wind)
 	if (!*wind)
 		return (1);
 	(*wind)->mlx = mlx_init();
-	(*wind)->win = mlx_new_window((*wind)->mlx, 1024, 512, "Cub3D");
+	(*wind)->win = mlx_new_window((*wind)->mlx, width, height, "Cub3D");
 	(*wind)->image = (t_image *)malloc(sizeof(t_image));
 	if (!*wind)
 		return (1);
-	(*wind)->image->img = mlx_new_image((*wind)->mlx, 1024, 512);
+	(*wind)->image->img = mlx_new_image((*wind)->mlx, width, height);
 	(*wind)->image->addr = mlx_get_data_addr((*wind)->image->img, &((*wind)->image->bits_per_pixel),
 						&((*wind)->image->line_length), &((*wind)->image->endian));
 	// (*wind)->pos.x = 22;
 	// (*wind)->pos.y = 12;
-	(*wind)->dir.x = -1;
-	(*wind)->dir.x = 0;
+	(*wind)->dir.x = 1;
+	(*wind)->dir.y = 0;
 	(*wind)->plan.x = 0;
 	(*wind)->plan.y = 0.66;
 	return (0);
 }
 
-void	draw_wall(int x, int start, int end, t_window *wind)
+void	draw_wall(int x, int start, int end, t_window *wind, int color)
 {
+	printf("x = %d, start = %d, end = %d\n", x, start, end);
 	while (start <= end)
 	{
-		mlx_put_image_to_window(wind->mlx, wind->win, wind->image->img, x, start);
+		my_mlx_pixel_put(wind->image, x, start, color);
 		start++;
 	}
 }
 
-void	raycast(void *globb)
+int	raycast(void *globb)
 {
+	printf("seg2\n");
 	int	x;
 	t_point	cam;
 	t_point	raydir;
@@ -62,27 +64,29 @@ void	raycast(void *globb)
 	t_point	step;
 	int	hit;
 	int	side;
-	t_global *globbb = globb;
-	t_global glob = *globbb;
+	t_global *glob = globb;
 	double	perpWallDist;
 	int	line_h;
 	int	start;
 	int	end;
+	int	color;
 	x = 0;
 	//cast a ray
-	while (x < 512)
+	printf("initial state:\nPos(%d, %d)\nDir(%d, %d)\nPlan(%f, %f)\n", (int)glob->wind->pos.x, (int)glob->wind->pos.y, (int)glob->wind->dir.x, (int)glob->wind->dir.y, glob->wind->plan.x, glob->wind->plan.y);
+	while (x < width)
 	{
-		cam.x = ((2 * x) / 512) - 1;
-		raydir.x = glob.wind->dir.x + glob.wind->plan.x * cam.x;
-		raydir.y = glob.wind->dir.y + glob.wind->plan.y * cam.x;
-		sqr_map.x = glob.wind->pos.x;
-		sqr_map.y = glob.wind->pos.y;
+		printf("x == %d\n", x);
+		cam.x = ((2 * x) / (double)width) - 1;
+		raydir.x = glob->wind->dir.x + glob->wind->plan.x * cam.x;
+		raydir.y = glob->wind->dir.y + glob->wind->plan.y * cam.x;
+		sqr_map.x = glob->wind->pos.x;
+		sqr_map.y = glob->wind->pos.y;
 		if (raydir.x)
-			delta_dist.x = 1 / raydir.x;
+			delta_dist.x = fabs(1 / raydir.x);
 		else
 			delta_dist.x = DBL_MAX;
 		if (raydir.y)
-			delta_dist.y = 1 / raydir.y;
+			delta_dist.y = fabs(1 / raydir.y);
 		else
 			delta_dist.y = DBL_MAX;
 		step.x = 0;
@@ -91,58 +95,66 @@ void	raycast(void *globb)
 		side = 0;
 		if (raydir.x < 0)
 		{
-			step.x = -1;
-			sideDist.x = (glob.wind->pos.x - sqr_map.x) * delta_dist.x;
+			step.x = -1.0;
+			sideDist.x = (glob->wind->pos.x - sqr_map.x) * delta_dist.x;
 		}
 		else
 		{
-			step.x = 1;
-			sideDist.x = (sqr_map.x + 1 - glob.wind->pos.x) * delta_dist.x;
+			step.x = 1.0;
+			sideDist.x = (sqr_map.x + 1.0 - glob->wind->pos.x) * delta_dist.x;
 		}
 		if (raydir.y < 0)
 		{
-			step.x = -1;
-			sideDist.y = (glob.wind->pos.y - sqr_map.y) * delta_dist.y;
+			step.y = -1.0;
+			sideDist.y = (glob->wind->pos.y - sqr_map.y) * delta_dist.y;
 		}
 		else
 		{
-			step.y = 1;
-			sideDist.y = (sqr_map.y + 1 - glob.wind->pos.y) * delta_dist.y;
+			step.y = 1.0;
+			sideDist.y = (sqr_map.y + 1.0 - glob->wind->pos.y) * delta_dist.y;
 		}
 		while (hit == 0)
 		{
+			printf("step.x: %f, step.y: %f\n", step.x, step.y);
+			printf("sideD.x: %f, sideD.y: %f\n", sideDist.x, sideDist.y);
 			if (sideDist.x < sideDist.y)
 			{
-				sideDist.x += step.x;
+				sideDist.x += sideDist.x;
 				sqr_map.x += step.x;
 				side = 0;
 			}
 			else
 			{
-				sideDist.y += step.y;
+				sideDist.y += delta_dist.y;
 				sqr_map.y += step.y;
-				side = 0;
+				side = 1;
 			}
-			if (!strcmp(glob.scene->matrix_map[(int)sqr_map.x][(int)sqr_map.y], "1"))
+			printf("current ray_squar: |%c| x = %d, y = %d\n", glob->scene->matrix_map[(int)sqr_map.x][(int)sqr_map.y - 1], (int)sqr_map.x, (int)sqr_map.y);
+			if (glob->scene->matrix_map[(int)sqr_map.x][(int)sqr_map.y - 1] == '1')
 				hit = 1;
+			//getchar();
 		}
+		// calculate distance between player and a hit
+		if(side == 0)
+			perpWallDist = (sideDist.x - delta_dist.x);
+		else
+			perpWallDist = (sideDist.x - delta_dist.y);
+		line_h =(int)(height / perpWallDist);
+		start = -line_h / 2 + height / 2;
+		if (start < 0)
+			start = 0;
+		end =  line_h / 2 + height / 2;
+		if (end >= height)
+			end = height - 1;
+		color = 0x00FF0000;
+		if(side == 1)
+			color = color / 2;
+		draw_wall(x, start, end, glob->wind, color);
 		x++;
 	}
-	// calculate distance between player and a hit
-	if(side == 0)
-		perpWallDist = (sideDist.x - delta_dist.x);
-	else
-		perpWallDist = (sideDist.x - delta_dist.y);
-	line_h = 256 / perpWallDist;
-	start = -line_h / 2 + 256 / 2;
-	if (start < 0)
-		start = 0;
-	end =  line_h / 2 + 256 / 2;
-	if (end >= 256)
-		end = 255;
-	draw_wall(x, start, end, glob.wind);
+	return (0);
 }
-
+//#########seg fault here ↓↓↓↓#########
 void	set_pos_dir(t_scene *scene, t_window *wind)
 {
 	int		i;
@@ -150,35 +162,43 @@ void	set_pos_dir(t_scene *scene, t_window *wind)
 	char	c;
 
 	i = 0;
-	while (scene->matrix_map[i][j])
+	while (scene->matrix_map[i])
 	{
 		j = 0;
 		while (j < ft_strlen(scene->matrix_map[i]))
 		{
 			if (scene->matrix_map[i][j] > '1')
-				c = scene->matrix_map[i][j];
+			{
+				wind->pos.x = i;
+				wind->pos.y = j;
+			}
 			j++;
 		}
-		i++;	
+		i++;
 	}
-	wind->pos.x = i;
-	wind->pos.y = j;
 	//initilize dir here later
 }
 
 void	open_window(t_scene *scene)
 {
-	t_window *wind;
-	t_global	glob;
+	t_window	*wind;
+	t_global	*glob;
 
 	wind = (t_window *)malloc(sizeof(t_window));
-	if (window_init(&wind) || !scene)
+	if (!wind || window_init(&wind) || !scene)
 		return ;
-	my_mlx_pixel_put(wind->image, 512, 256, 0x00FF0000);
+	printf("seg0\n");
 	mlx_put_image_to_window(wind->mlx, wind->win, wind->image->img, 0, 0);
-	glob.wind = wind;
-	glob.scene = scene;
+	glob = (t_global *)malloc(sizeof(t_global));
+	if (!glob)
+		return ;
+	glob->wind = wind;
+	glob->scene = scene;
 	set_pos_dir(scene, wind);
-	mlx_loop_hook(wind->mlx, raycast, (void *)&glob);
+	printf("seg1\n");
+	raycast(glob);
+	printf("seg3\n");
+	mlx_put_image_to_window(wind->mlx, wind->win, wind->image->img, 0, 0);
+	//mlx_loop_hook(wind->mlx, raycast, (void *)&glob);
 	mlx_loop(wind->mlx);
 }
