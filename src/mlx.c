@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:40:13 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/15 18:29:21 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/15 20:07:27 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ int	raycast(void *globb)
 		draw_wall(x, start, end, glob->wind, color);
 		x++;
 	}
+	mlx_put_image_to_window(glob->wind->mlx, glob->wind->win, glob->wind->image->img, 0, 0);
 	return (0);
 }
 
@@ -214,7 +215,7 @@ void	open_window(t_scene *scene)
 	glob.scene = scene;
 	set_pos_dir(scene, wind);
 	raycast(&glob);
-	mlx_put_image_to_window(wind->mlx, wind->win, wind->image->img, 0, 0);
+	//mlx_put_image_to_window(wind->mlx, wind->win, wind->image->img, 0, 0);
 	//mlx_loop_hook(wind->mlx, raycast, (void *)&glob);
 	mlx_loop(wind->mlx);
 }
