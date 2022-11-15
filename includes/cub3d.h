@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/12 20:12:19 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/14 19:25:15 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include <limits.h>
 #include <float.h>
 
-#define width 512
-#define height 512
+#define width 1000
+#define height 1000
 typedef	struct s_point
 {
 	double	x;
