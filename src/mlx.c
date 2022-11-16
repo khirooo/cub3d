@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:40:13 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/15 20:07:27 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/16 20:23:13 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	window_init(t_window **wind)
 
 void	draw_wall(int x, int start, int end, t_window *wind, int color)
 {
-	printf("x = %d, start = %d, end = %d\n", x, start, end);
+	//printf("x = %d, start = %d, end = %d\n", x, start, end);
 	while (start <= end)
 	{
 		my_mlx_pixel_put(wind->image, x, start, color);
@@ -52,9 +52,25 @@ void	draw_wall(int x, int start, int end, t_window *wind, int color)
 	}
 }
 
+double	normalize(int	x)
+{
+	double	ret;
+	int		min;
+	int		max;
+	int		range;
+	int		range2;
+
+	min = -551;
+	max = 2008;
+	range = max - min;
+	ret = ((double)x - (double)min) / (double)range;	
+	ret = (ret * 2) - 1;	
+	return (ret);
+}
+
 int	raycast(void *globb)
 {
-	printf("seg2\n");
+	//printf("seg2\n");
 	int	x;
 	t_point	cam;
 	t_point	raydir;
@@ -71,11 +87,52 @@ int	raycast(void *globb)
 	int	end;
 	int	color;
 	x = 0;
+	int	a;
+	int	b;
+
+	mlx_mouse_get_pos(glob->wind->win, &a, &b);
+	printf("x:%d, y:%d, norm:%f\n", a, b, normalize(a));
+	// if (a < 0)
+	// {
+	// 	glob->wind->dir.y = 
+	// }
+	// else
+	// {
+		
+	// }
+	if (a > 500)
+	{
+		double	old_dir_x = glob->wind->dir.x;
+		glob->wind->dir.x = glob->wind->dir.x * cosf(-0.05) - glob->wind->dir.y * sinf(-0.05);
+		glob->wind->dir.y = old_dir_x * sinf(-0.05) + glob->wind->dir.y * cosf(-0.05);
+		double	old_plan_x = glob->wind->plan.x;
+		glob->wind->plan.x = glob->wind->plan.x * cosf(-0.05) - glob->wind->plan.y * sinf(-0.05);
+      	glob->wind->plan.y = glob->wind->plan.x * sin(-0.05) + glob->wind->plan.y * cosf(-0.05);
+		mlx_mouse_move(glob->wind->win, width / 2, height / 2);
+		printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
+	}
+	if (a < 500)
+	{
+		double	old_dir_x = glob->wind->dir.x;
+		glob->wind->dir.x = glob->wind->dir.x * cosf(0.05) - glob->wind->dir.y * sinf(0.05);
+		glob->wind->dir.y = old_dir_x * sinf(0.05) + glob->wind->dir.y * cosf(0.05);
+		double	old_plan_x = glob->wind->plan.x;
+		glob->wind->plan.x = glob->wind->plan.x * cosf(0.05) - glob->wind->plan.y * sinf(0.05);
+      	glob->wind->plan.y = glob->wind->plan.x * sin(0.05) + glob->wind->plan.y * cosf(0.05);
+		mlx_mouse_move(glob->wind->win, width / 2, height / 2);
+		printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
+	}
+	// if (glob->wind->dir.x > 1 || glob->wind->dir.x < -1)
+	// 		glob->wind->dir.x = 0;
+	// if (glob->wind->dir.y > 1 || glob->wind->dir.y < -1)
+	// 		glob->wind->dir.y = 0;
 	//cast a ray
-	printf("initial state:\nPos(%d, %d)\nDir(%d, %d)\nPlan(%f, %f)\n", (int)glob->wind->pos.x, (int)glob->wind->pos.y, (int)glob->wind->dir.x, (int)glob->wind->dir.y, glob->wind->plan.x, glob->wind->plan.y);
+	//printf("initial state:\nPos(%d, %d)\nDir(%d, %d)\nPlan(%f, %f)\n", (int)glob->wind->pos.x, (int)glob->wind->pos.y, (int)glob->wind->dir.x, (int)glob->wind->dir.y, glob->wind->plan.x, glob->wind->plan.y);
+	mlx_destroy_image(glob->wind->mlx, glob->wind->image->img);
+	glob->wind->image->img = mlx_new_image(glob->wind->mlx, width, height);
 	while (x < width)
 	{
-		printf("x == %d\n", x);
+		//printf("x == %d\n", x);
 		cam.x = ((2 * x) / (double)width) - 1;
 		raydir.x = glob->wind->dir.x + glob->wind->plan.x * cam.x;
 		raydir.y = glob->wind->dir.y + glob->wind->plan.y * cam.x;
@@ -115,8 +172,8 @@ int	raycast(void *globb)
 		}
 		while (hit == 0)
 		{
-			printf("step.x: %f, step.y: %f\n", step.x, step.y);
-			printf("sideD.x: %f, sideD.y: %f\n", sideDist.x, sideDist.y);
+			//printf("step.x: %f, step.y: %f\n", step.x, step.y);
+			//printf("sideD.x: %f, sideD.y: %f\n", sideDist.x, sideDist.y);
 			if (sideDist.x < sideDist.y)
 			{
 				sideDist.x += delta_dist.x;
@@ -129,7 +186,7 @@ int	raycast(void *globb)
 				sqr_map.y += step.y;
 				side = 1;
 			}
-			printf("current ray_squar: |%c| x = %d, y = %d\n", glob->scene->matrix_map[(int)sqr_map.x][(int)sqr_map.y - 1], (int)sqr_map.x, (int)sqr_map.y);
+			//printf("current ray_squar: |%c| x = %d, y = %d\n", glob->scene->matrix_map[(int)sqr_map.x][(int)sqr_map.y - 1], (int)sqr_map.x, (int)sqr_map.y);
 			if (glob->scene->matrix_map[(int)sqr_map.x][(int)sqr_map.y] == '1')
 				hit = 1;
 			//getchar();
@@ -140,7 +197,7 @@ int	raycast(void *globb)
 		else
 			perpWallDist = (sideDist.y - delta_dist.y);
 		line_h =(int)(height / perpWallDist);
-		printf("line h == %d\n", line_h);
+		//printf("line h == %d\n", line_h);
 		//getchar();
 		start = -line_h / 2 + height / 2;
 		if (start < 0)
@@ -202,6 +259,47 @@ void	set_pos_dir(t_scene *scene, t_window *wind)
 	}
 }
 
+
+// int	mouse_hook(t_global *glob)
+// {
+// 	int	x;
+// 	int	y;
+
+// 	mlx_mouse_get_pos(glob->wind->win, &x, &y);
+// 	printf("x:%d, y:%d\n", x, y);
+// 	printf("mouse\n");
+// 	return (0);
+// }
+
+int	key_hook(int keycode, t_global	*glob)
+{
+	if (keycode == KEY_W &&
+		glob->scene->matrix_map[(int)glob->wind->pos.x - 2][(int)glob->wind->pos.y] != '1')
+		{
+		glob->wind->pos.y += glob->wind->dir.y;
+		glob->wind->pos.x += glob->wind->dir.x;
+		}
+	if (keycode == KEY_S &&
+		glob->scene->matrix_map[(int)glob->wind->pos.x + 2][(int)glob->wind->pos.y] != '1')
+		{
+		glob->wind->pos.y -= glob->wind->dir.y;
+		glob->wind->pos.x -= glob->wind->dir.x;
+		}
+	if (keycode == KEY_D &&
+		glob->scene->matrix_map[(int)glob->wind->pos.x][(int)glob->wind->pos.y - 2] != '1')
+		{
+			glob->wind->pos.y -= glob->wind->dir.x;
+			glob->wind->pos.x += glob->wind->dir.y;
+		}
+	if (keycode == KEY_A &&
+		glob->scene->matrix_map[(int)glob->wind->pos.x][(int)glob->wind->pos.y + 2] != '1')
+		{
+			glob->wind->pos.y += glob->wind->dir.x;
+			glob->wind->pos.x -= glob->wind->dir.y;
+		}
+	return (0);
+}
+
 void	open_window(t_scene *scene)
 {
 	t_window *wind;
@@ -214,8 +312,11 @@ void	open_window(t_scene *scene)
 	glob.wind = wind;
 	glob.scene = scene;
 	set_pos_dir(scene, wind);
-	raycast(&glob);
+	mlx_mouse_hide();
+	//raycast(&glob);
 	//mlx_put_image_to_window(wind->mlx, wind->win, wind->image->img, 0, 0);
-	//mlx_loop_hook(wind->mlx, raycast, (void *)&glob);
+	mlx_key_hook(wind->win, key_hook, &glob);
+	//mlx_mouse_hook(wind->win, mouse_hook, &glob);
+	mlx_loop_hook(wind->mlx, raycast, (void *)&glob);
 	mlx_loop(wind->mlx);
 }

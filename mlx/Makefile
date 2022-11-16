@@ -11,6 +11,11 @@ CFLAGS+=-O2
 # add to match string put with X11 in size and position
 CFLAGS+= -DSTRINGPUTX11
 
+%.o : %.c
+	@cc -O2 -w -DSTRINGPUTX11 -c -o $@ $<
+%.o : %.m
+	@cc -O2 -w -DSTRINGPUTX11 -c -o $@ $<
+
 all: $(NOM)
 
 $(NOM):	$(OBJ)
