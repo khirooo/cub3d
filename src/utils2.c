@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:07:08 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/04 19:12:48 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/17 12:48:00 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
-
-// char	*get_n_word(char *line)
-// {
-// 	int		i;
-// 	char	**words;
-
-// 	words =  ft_split(line, ' ');
-// 	i = 0;
-// 	while (words[i] == ' ')
-// 	{
-// 		/* code */
-// 	}
-	
-	
-	
-// }
+#include "cub3d.h"
 
 int	is_empty(char *line)
 {
