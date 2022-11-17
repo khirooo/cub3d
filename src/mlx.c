@@ -6,7 +6,7 @@
 /*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:40:13 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/17 13:07:33 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/11/17 16:50:15 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,35 +58,6 @@ double	normalize(int	x)
 // 	mlx_mouse_get_pos(glob->wind->win, &x, &y);
 // 	printf("x:%d, y:%d\n", x, y);
 // 	printf("mouse\n");
-// 	return (0);
-// }
-
-// int	key_hook(int keycode, t_global	*glob)
-// {
-// 	if (keycode == KEY_W &&
-// 		glob->scene->matrix_map[(int)glob->wind->pos.x - 2][(int)glob->wind->pos.y] != '1')
-// 		{
-// 		glob->wind->pos.y += glob->wind->dir.y;
-// 		glob->wind->pos.x += glob->wind->dir.x;
-// 		}
-// 	if (keycode == KEY_S &&
-// 		glob->scene->matrix_map[(int)glob->wind->pos.x + 2][(int)glob->wind->pos.y] != '1')
-// 		{
-// 		glob->wind->pos.y -= glob->wind->dir.y;
-// 		glob->wind->pos.x -= glob->wind->dir.x;
-// 		}
-// 	if (keycode == KEY_D &&
-// 		glob->scene->matrix_map[(int)glob->wind->pos.x][(int)glob->wind->pos.y - 2] != '1')
-// 		{
-// 			glob->wind->pos.y -= glob->wind->dir.x;
-// 			glob->wind->pos.x += glob->wind->dir.y;
-// 		}
-// 	if (keycode == KEY_A &&
-// 		glob->scene->matrix_map[(int)glob->wind->pos.x][(int)glob->wind->pos.y + 2] != '1')
-// 		{
-// 			glob->wind->pos.y += glob->wind->dir.x;
-// 			glob->wind->pos.x -= glob->wind->dir.y;
-// 		}
 // 	return (0);
 // }
 

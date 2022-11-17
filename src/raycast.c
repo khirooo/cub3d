@@ -6,7 +6,7 @@
 /*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/17 13:03:12 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/11/17 18:16:26 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int	raycast(void *globb)
 		color = 0x00FF0000;
 		if(side == 1)
 			color = color / 2;
-		draw_wall(x, start, end, glob->wind, color);
+		draw_wall(x, start, end, glob->wind, color, glob);
 		x++;
 	}
 	mlx_put_image_to_window(glob->wind->mlx, glob->wind->win, glob->wind->image->img, 0, 0);

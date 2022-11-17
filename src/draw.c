@@ -6,7 +6,7 @@
 /*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:24:04 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/17 13:19:17 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/11/17 18:24:25 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,18 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-// void	draw_floceil(int x, int start, int end, t_window *wind, int color)
+int		convert_rgb(int *arr)
+{
+	return ((arr[0] & 0xff) << 16) + ((arr[1] & 0xff) << 8) + (arr[2] & 0xff);
+}
 
-void	draw_wall(int x, int start, int end, t_window *wind, int color)
+void	draw_wall(int x, int start, int end, t_window *wind, int color, t_global *glob)
 {
     int y;
 
     y = 0;
     while (y < start)
-        my_mlx_pixel_put(wind->image, x, y++, 0xFFFFFF);
+        my_mlx_pixel_put(wind->image, x, y++, convert_rgb(glob->scene->c));
 	while (start <= end)
 	{
 		my_mlx_pixel_put(wind->image, x, start, color);
@@ -36,6 +39,10 @@ void	draw_wall(int x, int start, int end, t_window *wind, int color)
         y++;
 	}
     while (y < height)
-        my_mlx_pixel_put(wind->image, x, y++, 0x000000);
+        my_mlx_pixel_put(wind->image, x, y++, convert_rgb(glob->scene->f));
 
-}
+
+	
+
+
+} 
