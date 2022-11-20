@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/17 13:05:11 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/11/20 19:04:28 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "mlx.h"
+# include "MLX42.h"
 # include "get_next_line.h"
 # include "libft.h"
 # include <stdio.h>
@@ -24,9 +24,10 @@
 #include <string.h>
 # include <limits.h>
 #include <float.h>
+# include <time.h>
 
-#define width 1000
-#define height 1000
+#define WIDTH 1000
+#define HEIGHT 1000
 
 # define KEY_A 0
 # define KEY_D 2
@@ -54,20 +55,10 @@ typedef	struct s_scene
 	char	**matrix_map;
 }	t_scene;
 
-typedef	struct s_image
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;	
-}	t_image;
-
 typedef	struct s_window
 {
-	void	*mlx;
-	void	*win;
-	t_image	*image;
+	mlx_t		*mlx;
+	mlx_image_t	*image;
 	t_point	pos;
 	t_point	dir;
 	t_point	plan;
@@ -88,7 +79,7 @@ void	print_scene(t_scene *scene);
 int		parse_map(t_scene *scene);
 void	open_window(t_scene *scene);
 int		key_hook(int keycode, t_global *glob);
-int		raycast(void *globb);
+void	raycast(void *globb);
 void	set_pos_dir(t_scene *scene, t_window *wind);
 void	draw_wall(int x, int start, int end, t_window *wind, int color);
 void	draw_floceil(int x, int start, int end, t_window *wind, int color);

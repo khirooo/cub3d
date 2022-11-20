@@ -6,7 +6,7 @@
 #    By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 13:59:31 by kfergani          #+#    #+#              #
-#    Updated: 2022/11/16 14:32:58 by kfergani         ###   ########.fr        #
+#    Updated: 2022/11/20 19:57:18 by kfergani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,21 +16,21 @@ SOURCES 	= $(shell find ./src -name "*.c") $(shell find ./get_next_line -name "*
 HEADERS		= ./includes
 
 LIBFT		= ./libft/libft.a
-MLX			= ./mlx/libmlx.a
+MLX			= ./MLX42/libmlx42.a
 
 OBJECTS 	= $(patsubst %.c, %.o, $(SOURCES))
 
 CC			= 	gcc
-CFLAGS 		= 
-MLXFLAGS	= -Lmlx -lmlx -framework OpenGL -framework AppKit -lz
+CFLAGS 		= -lglfw 
+MLXFLAGS	= /Users/kfergani/.brew/opt/glfw/lib/
 
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) -I $(HEADERS) $(CFLAGS) -c $< -o $@
+	@$(CC) -I $(HEADERS) -c $< -o $@
 
 $(NAME): $(OBJECTS) $(LIBFT) $(MLX)
-	@$(CC) $(CFLAGS) $(LIBFT) $(MLXFLAGS) -I $(HEADERS) $(OBJECTS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIBFT) $(MLX) -I $(HEADERS) $(OBJECTS) -o $(NAME) -L $(MLXFLAGS)
 	@echo "Compiled !"
 
 $(LIBFT): 
@@ -38,19 +38,19 @@ $(LIBFT):
 	@cp  $(LIBFT) .
 
 $(MLX): 
-	@make -C ./mlx
+	@make -C ./MLX42
 	@cp  $(MLX) .
 
 clean:
 	@make fclean -C ./libft
-	@make clean -C ./mlx
+	@make clean -C ./MLX42
 	-@rm $(OBJECTS)
 	@echo "Everything is Cleaned !"
 
 fclean: clean
 	-@rm $(NAME)
 	-@rm ./libft.a
-	@rm ./libmlx.a
+	@rm ./libmlx42.a
 
 git:
 	@git add .

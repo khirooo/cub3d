@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/17 13:03:12 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/11/20 19:10:19 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	raycast(void *globb)
+void	raycast(void *globb)
 {
-	//printf("seg2\n");
 	int	x;
 	t_point	cam;
 	t_point	raydir;
@@ -34,49 +33,35 @@ int	raycast(void *globb)
 	int	a;
 	int	b;
 
-	mlx_mouse_get_pos(glob->wind->win, &a, &b);
-	//printf("x:%d, y:%d, norm:%f\n", a, b, normalize(a));
-	// if (a < 0)
+	// mlx_mouse_get_pos(glob->wind->win, &a, &b);
+	// if (a > 500)
 	// {
-	// 	glob->wind->dir.y = 
+	// 	double	old_dir_x = glob->wind->dir.x;
+	// 	glob->wind->dir.x = glob->wind->dir.x * cosf(-0.05) - glob->wind->dir.y * sinf(-0.05);
+	// 	glob->wind->dir.y = old_dir_x * sinf(-0.05) + glob->wind->dir.y * cosf(-0.05);
+	// 	double	old_plan_x = glob->wind->plan.x;
+	// 	glob->wind->plan.x = glob->wind->plan.x * cosf(-0.05) - glob->wind->plan.y * sinf(-0.05);
+    //   	glob->wind->plan.y = glob->wind->plan.x * sin(-0.05) + glob->wind->plan.y * cosf(-0.05);
+	// 	mlx_mouse_move(glob->wind->win, WIDTH / 2, HEIGHT / 2);
+	// 	printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
 	// }
-	// else
+	// if (a < 500)
 	// {
-		
+	// 	double	old_dir_x = glob->wind->dir.x;
+	// 	glob->wind->dir.x = glob->wind->dir.x * cosf(0.05) - glob->wind->dir.y * sinf(0.05);
+	// 	glob->wind->dir.y = old_dir_x * sinf(0.05) + glob->wind->dir.y * cosf(0.05);
+	// 	double	old_plan_x = glob->wind->plan.x;
+	// 	glob->wind->plan.x = glob->wind->plan.x * cosf(0.05) - glob->wind->plan.y * sinf(0.05);
+    //   	glob->wind->plan.y = glob->wind->plan.x * sin(0.05) + glob->wind->plan.y * cosf(0.05);
+	// 	mlx_mouse_move(glob->wind->win, WIDTH / 2, HEIGHT / 2);
+	// 	printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
 	// }
-	if (a > 500)
+	mlx_delete_image(glob->wind->mlx, glob->wind->image);
+	glob->wind->image = mlx_new_image(glob->wind->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(glob->wind->mlx, glob->wind->image, 0, 0);
+	while (x < WIDTH)
 	{
-		double	old_dir_x = glob->wind->dir.x;
-		glob->wind->dir.x = glob->wind->dir.x * cosf(-0.05) - glob->wind->dir.y * sinf(-0.05);
-		glob->wind->dir.y = old_dir_x * sinf(-0.05) + glob->wind->dir.y * cosf(-0.05);
-		double	old_plan_x = glob->wind->plan.x;
-		glob->wind->plan.x = glob->wind->plan.x * cosf(-0.05) - glob->wind->plan.y * sinf(-0.05);
-      	glob->wind->plan.y = glob->wind->plan.x * sin(-0.05) + glob->wind->plan.y * cosf(-0.05);
-		mlx_mouse_move(glob->wind->win, width / 2, height / 2);
-		printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
-	}
-	if (a < 500)
-	{
-		double	old_dir_x = glob->wind->dir.x;
-		glob->wind->dir.x = glob->wind->dir.x * cosf(0.05) - glob->wind->dir.y * sinf(0.05);
-		glob->wind->dir.y = old_dir_x * sinf(0.05) + glob->wind->dir.y * cosf(0.05);
-		double	old_plan_x = glob->wind->plan.x;
-		glob->wind->plan.x = glob->wind->plan.x * cosf(0.05) - glob->wind->plan.y * sinf(0.05);
-      	glob->wind->plan.y = glob->wind->plan.x * sin(0.05) + glob->wind->plan.y * cosf(0.05);
-		mlx_mouse_move(glob->wind->win, width / 2, height / 2);
-		printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
-	}
-	// if (glob->wind->dir.x > 1 || glob->wind->dir.x < -1)
-	// 		glob->wind->dir.x = 0;
-	// if (glob->wind->dir.y > 1 || glob->wind->dir.y < -1)
-	// 		glob->wind->dir.y = 0;
-	//cast a ray
-	//printf("initial state:\nPos(%d, %d)\nDir(%d, %d)\nPlan(%f, %f)\n", (int)glob->wind->pos.x, (int)glob->wind->pos.y, (int)glob->wind->dir.x, (int)glob->wind->dir.y, glob->wind->plan.x, glob->wind->plan.y);
-	mlx_destroy_image(glob->wind->mlx, glob->wind->image->img);
-	glob->wind->image->img = mlx_new_image(glob->wind->mlx, width, height);
-	while (x < width)
-	{
-		cam.x = ((2 * x) / (double)width) - 1;
+		cam.x = ((2 * x) / (double)WIDTH) - 1;
 		raydir.x = glob->wind->dir.x + glob->wind->plan.x * cam.x;
 		raydir.y = glob->wind->dir.y + glob->wind->plan.y * cam.x;
 		sqr_map.x = glob->wind->pos.x;
@@ -136,26 +121,24 @@ int	raycast(void *globb)
 		}
 		// calculate distance between player and a hit
 		if(side == 0)
-			perpWallDist = (sideDist.x - delta_dist.x); // problem here <<<<-----
+			perpWallDist = (sideDist.x - delta_dist.x);
 		else
 			perpWallDist = (sideDist.y - delta_dist.y);
-		line_h =(int)(height / perpWallDist);
+		line_h =(int)(HEIGHT / perpWallDist);
 		//printf("line h == %d\n", line_h);
 		//getchar();
-		start = -line_h / 2 + height / 2;
+		start = -line_h / 2 + HEIGHT / 2;
 		if (start < 0)
 			start = 0;
-		end =  line_h / 2 + height / 2;
-		if (end >= height)
-			end = height - 1;
+		end =  line_h / 2 + HEIGHT / 2;
+		if (end >= HEIGHT)
+			end = HEIGHT - 1;
 		color = 0x00FF0000;
 		if(side == 1)
 			color = color / 2;
 		draw_wall(x, start, end, glob->wind, color);
 		x++;
 	}
-	mlx_put_image_to_window(glob->wind->mlx, glob->wind->win, glob->wind->image->img, 0, 0);
-	return (0);
 }
 
 void	set_pos_dir(t_scene *scene, t_window *wind)
