@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/20 19:10:19 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:19:30 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,29 +33,29 @@ void	raycast(void *globb)
 	int	a;
 	int	b;
 
-	// mlx_mouse_get_pos(glob->wind->win, &a, &b);
-	// if (a > 500)
-	// {
-	// 	double	old_dir_x = glob->wind->dir.x;
-	// 	glob->wind->dir.x = glob->wind->dir.x * cosf(-0.05) - glob->wind->dir.y * sinf(-0.05);
-	// 	glob->wind->dir.y = old_dir_x * sinf(-0.05) + glob->wind->dir.y * cosf(-0.05);
-	// 	double	old_plan_x = glob->wind->plan.x;
-	// 	glob->wind->plan.x = glob->wind->plan.x * cosf(-0.05) - glob->wind->plan.y * sinf(-0.05);
-    //   	glob->wind->plan.y = glob->wind->plan.x * sin(-0.05) + glob->wind->plan.y * cosf(-0.05);
-	// 	mlx_mouse_move(glob->wind->win, WIDTH / 2, HEIGHT / 2);
-	// 	printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
-	// }
-	// if (a < 500)
-	// {
-	// 	double	old_dir_x = glob->wind->dir.x;
-	// 	glob->wind->dir.x = glob->wind->dir.x * cosf(0.05) - glob->wind->dir.y * sinf(0.05);
-	// 	glob->wind->dir.y = old_dir_x * sinf(0.05) + glob->wind->dir.y * cosf(0.05);
-	// 	double	old_plan_x = glob->wind->plan.x;
-	// 	glob->wind->plan.x = glob->wind->plan.x * cosf(0.05) - glob->wind->plan.y * sinf(0.05);
-    //   	glob->wind->plan.y = glob->wind->plan.x * sin(0.05) + glob->wind->plan.y * cosf(0.05);
-	// 	mlx_mouse_move(glob->wind->win, WIDTH / 2, HEIGHT / 2);
-	// 	printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
-	// }
+	mlx_get_mouse_pos(glob->wind->mlx, &a, &b);
+	if (a > 500)
+	{
+		double	old_dir_x = glob->wind->dir.x;
+		glob->wind->dir.x = glob->wind->dir.x * cosf(-0.05) - glob->wind->dir.y * sinf(-0.05);
+		glob->wind->dir.y = old_dir_x * sinf(-0.05) + glob->wind->dir.y * cosf(-0.05);
+		double	old_plan_x = glob->wind->plan.x;
+		glob->wind->plan.x = glob->wind->plan.x * cosf(-0.05) - glob->wind->plan.y * sinf(-0.05);
+      	glob->wind->plan.y = glob->wind->plan.x * sin(-0.05) + glob->wind->plan.y * cosf(-0.05);
+		mlx_set_mouse_pos(glob->wind->mlx, WIDTH / 2, HEIGHT / 2);
+		printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
+	}
+	if (a < 500)
+	{
+		double	old_dir_x = glob->wind->dir.x;
+		glob->wind->dir.x = glob->wind->dir.x * cosf(0.05) - glob->wind->dir.y * sinf(0.05);
+		glob->wind->dir.y = old_dir_x * sinf(0.05) + glob->wind->dir.y * cosf(0.05);
+		double	old_plan_x = glob->wind->plan.x;
+		glob->wind->plan.x = glob->wind->plan.x * cosf(0.05) - glob->wind->plan.y * sinf(0.05);
+      	glob->wind->plan.y = glob->wind->plan.x * sin(0.05) + glob->wind->plan.y * cosf(0.05);
+		mlx_set_mouse_pos(glob->wind->mlx, WIDTH / 2, HEIGHT / 2);
+		printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
+	}
 	mlx_delete_image(glob->wind->mlx, glob->wind->image);
 	glob->wind->image = mlx_new_image(glob->wind->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(glob->wind->mlx, glob->wind->image, 0, 0);
@@ -133,7 +133,7 @@ void	raycast(void *globb)
 		end =  line_h / 2 + HEIGHT / 2;
 		if (end >= HEIGHT)
 			end = HEIGHT - 1;
-		color = 0x00FF0000;
+		color = 0xFF0000FF;
 		if(side == 1)
 			color = color / 2;
 		draw_wall(x, start, end, glob->wind, color);

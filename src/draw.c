@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:24:04 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/20 19:14:17 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:20:58 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw_wall(int x, int start, int end, t_window *wind, int color)
     //     my_mlx_pixel_put(wind->image, x, y++, 0xFFFFFF);
 	while (start <= end)
 	{
-		printf("runing %d, %d, %d\n", start, end, color);
+		//printf("runing %d, %d, %d\n", start, end, color);
 		mlx_put_pixel(wind->image, x, start, color);
 		//my_mlx_pixel_put(wind->image, x, start, color);
 		start++;

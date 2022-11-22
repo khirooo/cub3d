@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/20 19:04:28 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:16:34 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	free_dp(char **i);
 void	print_scene(t_scene *scene);
 int		parse_map(t_scene *scene);
 void	open_window(t_scene *scene);
-int		key_hook(int keycode, t_global *glob);
+void	key_hook(mlx_key_data_t keycode, void *glob);
 void	raycast(void *globb);
 void	set_pos_dir(t_scene *scene, t_window *wind);
 void	draw_wall(int x, int start, int end, t_window *wind, int color);

@@ -6,7 +6,7 @@
 #    By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 13:59:31 by kfergani          #+#    #+#              #
-#    Updated: 2022/11/20 19:57:18 by kfergani         ###   ########.fr        #
+#    Updated: 2022/11/22 13:55:41 by kfergani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ clean:
 fclean: clean
 	-@rm $(NAME)
 	-@rm ./libft.a
-	@rm ./libmlx42.a
+	@make fclean -C ./MLX42
 
 git:
 	@git add .
