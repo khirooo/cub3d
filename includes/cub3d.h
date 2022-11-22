@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/22 14:16:34 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:48:18 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 #define WIDTH 1000
 #define HEIGHT 1000
-
+#define	MOV_SPD 0.4
 # define KEY_A 0
 # define KEY_D 2
 # define KEY_W 13
@@ -59,9 +59,9 @@ typedef	struct s_window
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
-	t_point	pos;
-	t_point	dir;
-	t_point	plan;
+	t_point		pos;
+	t_point		dir;
+	t_point		plan;
 		
 }	t_window;
 

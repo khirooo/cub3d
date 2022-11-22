@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/22 14:19:30 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/22 20:08:26 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	raycast(void *globb)
 		glob->wind->plan.x = glob->wind->plan.x * cosf(-0.05) - glob->wind->plan.y * sinf(-0.05);
       	glob->wind->plan.y = glob->wind->plan.x * sin(-0.05) + glob->wind->plan.y * cosf(-0.05);
 		mlx_set_mouse_pos(glob->wind->mlx, WIDTH / 2, HEIGHT / 2);
-		printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
+		//printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
 	}
 	if (a < 500)
 	{
@@ -54,7 +54,7 @@ void	raycast(void *globb)
 		glob->wind->plan.x = glob->wind->plan.x * cosf(0.05) - glob->wind->plan.y * sinf(0.05);
       	glob->wind->plan.y = glob->wind->plan.x * sin(0.05) + glob->wind->plan.y * cosf(0.05);
 		mlx_set_mouse_pos(glob->wind->mlx, WIDTH / 2, HEIGHT / 2);
-		printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
+		//printf("pos(x, y)= %f, %f\ndir: %f, %f\n",  glob->wind->pos.x,  glob->wind->pos.y, glob->wind->dir.x, glob->wind->dir.y);
 	}
 	mlx_delete_image(glob->wind->mlx, glob->wind->image);
 	glob->wind->image = mlx_new_image(glob->wind->mlx, WIDTH, HEIGHT);
@@ -64,8 +64,8 @@ void	raycast(void *globb)
 		cam.x = ((2 * x) / (double)WIDTH) - 1;
 		raydir.x = glob->wind->dir.x + glob->wind->plan.x * cam.x;
 		raydir.y = glob->wind->dir.y + glob->wind->plan.y * cam.x;
-		sqr_map.x = glob->wind->pos.x;
-		sqr_map.y = glob->wind->pos.y;
+		sqr_map.x = (int)glob->wind->pos.x;
+		sqr_map.y = (int)glob->wind->pos.y;
 		if (raydir.x)
 			delta_dist.x = fabs(1.0 / raydir.x);
 		else
@@ -105,13 +105,13 @@ void	raycast(void *globb)
 			if (sideDist.x < sideDist.y)
 			{
 				sideDist.x += delta_dist.x;
-				sqr_map.x += step.x;
+				sqr_map.x += (int)step.x;
 				side = 0;
 			}
 			else
 			{
 				sideDist.y += delta_dist.y;
-				sqr_map.y += step.y;
+				sqr_map.y += (int)step.y;
 				side = 1;
 			}
 			//printf("current ray_squar: |%c| x = %d, y = %d\n", glob->scene->matrix_map[(int)sqr_map.x][(int)sqr_map.y - 1], (int)sqr_map.x, (int)sqr_map.y);
@@ -124,7 +124,7 @@ void	raycast(void *globb)
 			perpWallDist = (sideDist.x - delta_dist.x);
 		else
 			perpWallDist = (sideDist.y - delta_dist.y);
-		line_h =(int)(HEIGHT / perpWallDist);
+		line_h =(int)(HEIGHT * 1.5 / perpWallDist);
 		//printf("line h == %d\n", line_h);
 		//getchar();
 		start = -line_h / 2 + HEIGHT / 2;

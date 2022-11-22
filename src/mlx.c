@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:40:13 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/22 14:14:49 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:37:40 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	open_window(t_scene *scene)
 	glob.wind = wind;
 	glob.scene = scene;
 	set_pos_dir(scene, wind);
-	mlx_put_pixel(wind->image, 500, 500, 0xFF0000FF);
 	mlx_key_hook(wind->mlx, &key_hook, (void *)&glob);
 	mlx_loop_hook(wind->mlx, raycast, (void *)&glob);
 	mlx_loop(wind->mlx);
