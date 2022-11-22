@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/22 20:08:26 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/22 20:48:58 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	raycast(void *globb)
 			perpWallDist = (sideDist.x - delta_dist.x);
 		else
 			perpWallDist = (sideDist.y - delta_dist.y);
-		line_h =(int)(HEIGHT * 1.5 / perpWallDist);
+		line_h =(int)(HEIGHT * 0.6 / perpWallDist);
 		//printf("line h == %d\n", line_h);
 		//getchar();
 		start = -line_h / 2 + HEIGHT / 2;

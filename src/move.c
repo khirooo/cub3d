@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:25:32 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/22 20:05:51 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/22 20:50:41 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_wall(double dir_x, double dir_y, t_global *glob)
 	int	i;
 
 	i = 1;
-	while (i < 2)
+	while (i < 3)
 	{
 		if (glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * MOV_SPD)][(int)glob->wind->pos.y] == '1')
 		{
@@ -66,8 +66,16 @@ void	move(double dir_x, double dir_y, t_global *glob)
 {
 	if (check_wall(dir_x, dir_y, glob))
 	{
-		glob->wind->pos.x += dir_x * MOV_SPD;
-		glob->wind->pos.y += dir_y * MOV_SPD;
+		if (mlx_is_key_down(glob->wind->mlx, MLX_KEY_LEFT_SHIFT))
+		{
+			glob->wind->pos.x += dir_x * 2 * MOV_SPD;
+			glob->wind->pos.y += dir_y * 2 * MOV_SPD;
+		}
+		else
+		{
+			glob->wind->pos.x += dir_x * MOV_SPD;
+			glob->wind->pos.y += dir_y * MOV_SPD;
+		}
 	}	
 }
 
@@ -93,33 +101,6 @@ void key_hook(mlx_key_data_t keycode, void *globb)
 	{
 		move(glob->wind->dir.y, -glob->wind->dir.x, glob);
 	}
-	
-	// if (keycode.key == MLX_KEY_W && keycode.action == MLX_PRESS)
-	// {
-	// 	printf("-checking(x): map[%d][%d] == %c\n", (int)glob->wind->pos.x + get_dir(glob->wind->dir.x), (int)glob->wind->pos.y, glob->scene->matrix_map[(int)glob->wind->pos.x + get_dir(glob->wind->dir.x)][(int)glob->wind->pos.y]);
-	// 	if (glob->scene->matrix_map[(int)glob->wind->pos.x +((int)(glob->wind->dir.x * 1.9))][(int)glob->wind->pos.y] == '0')
-	// 		glob->wind->pos.x += (int)glob->wind->dir.x * 1.9;
-	// 	printf("-checking(y): map[%d][%d] == %c\n", (int)glob->wind->pos.x, (int)(glob->wind->pos.y) + (int)(glob->wind->dir.y * 1.9), glob->scene->matrix_map[(int)glob->wind->pos.x][(int)glob->wind->pos.y + get_dir(glob->wind->dir.y)]);
-	// 	if (glob->scene->matrix_map[(int)glob->wind->pos.x][(int)glob->wind->pos.y + (int)(glob->wind->dir.y * 1.9)] == '0')
-	// 		glob->wind->pos.y += glob->wind->dir.y * 1.9;
-	// }
-	// 	// glob->scene->matrix_map[(int)glob->wind->pos.x +((int)glob->wind->dir.x * 2)][(int)glob->wind->pos.y] != '1')
-    //     //     fck_norm(glob);
-	// if (keycode.key == MLX_KEY_S &&
-	// 	glob->scene->matrix_map[(int)glob->wind->pos.x + 2][(int)glob->wind->pos.y] != '1')
-    //         fck_norm1(glob);
-	// if (keycode.key == MLX_KEY_D &&
-	// 	glob->scene->matrix_map[(int)glob->wind->pos.x][(int)glob->wind->pos.y - 2] != '1')
-	// 	{
-	// 		glob->wind->pos.y -= glob->wind->dir.x;
-	// 		glob->wind->pos.x += glob->wind->dir.y;
-	// 	}
-	// if (keycode.key == MLX_KEY_A &&
-	// 	glob->scene->matrix_map[(int)glob->wind->pos.x][(int)glob->wind->pos.y + 2] != '1')
-	// 	{
-	// 		glob->wind->pos.y += glob->wind->dir.x;
-	// 		glob->wind->pos.x -= glob->wind->dir.y;
-	// 	}
 	if (keycode.key == MLX_KEY_LEFT)
 	{
 		double	old_dir_x = glob->wind->dir.x;
