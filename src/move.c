@@ -6,39 +6,11 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:25:32 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/23 14:03:26 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:33:28 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void    fck_norm(t_global *glob)
-{
-		glob->wind->pos.y += glob->wind->dir.y;
-		glob->wind->pos.x += glob->wind->dir.x;
-}
-
-void    fck_norm1(t_global *glob)
-{
-		glob->wind->pos.y -= glob->wind->dir.y;
-		glob->wind->pos.x -= glob->wind->dir.x;
-}
-
-int		get_dir(double x)
-{
-	if (x > 0)
-	{
-		if (x >= 0.5)
-			return (1);
-		return (0);
-	}
-	else
-	{
-		if (x <= -0.5)
-			return (-1);
-		return (0);
-	}
-}
 
 int	check_wall(double dir_x, double dir_y, t_global *glob, double mv_spd)
 {
@@ -125,5 +97,9 @@ void key_hook(mlx_key_data_t keycode, void *globb)
 	}
 	//printf("keycode: %d\n", keycode.key);
     if (keycode.key == MLX_KEY_ESCAPE)
-        exit(0);
+	{
+        mlx_terminate(glob->wind->mlx);
+		//free_stuf
+		exit (0);
+	}
 }

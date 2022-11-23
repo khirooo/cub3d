@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/22 19:48:18 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:36:02 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ void	open_window(t_scene *scene);
 void	key_hook(mlx_key_data_t keycode, void *glob);
 void	raycast(void *globb);
 void	set_pos_dir(t_scene *scene, t_window *wind);
-void	draw_wall(int x, int start, int end, t_window *wind, int color);
-void	draw_floceil(int x, int start, int end, t_window *wind, int color);
+void	draw_wall(int x, int start, int end, t_window *wind, int color, t_global *glob);
 
 #endif
 

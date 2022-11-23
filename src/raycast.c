@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/22 20:48:58 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/23 15:36:17 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	raycast(void *globb)
 		color = 0xFF0000FF;
 		if(side == 1)
 			color = color / 2;
-		draw_wall(x, start, end, glob->wind, color);
+		draw_wall(x, start, end, glob->wind, color, glob);
 		x++;
 	}
 }

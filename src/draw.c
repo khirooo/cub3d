@@ -3,30 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:24:04 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/23 14:49:37 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/11/23 15:35:41 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// void	my_mlx_pixel_put(mlx_image_t *image, int x, int y, int color)
-// {
-// 	char	*dst;
+int createRGB(int r, int g, int b)
+{   
+    return (r << 24 | g << 16 | b << 8 | 255);
+}
 
-// 	dst = image->addr + (y * image->line_length + x * (image->bits_per_pixel / 8));
-// 	*(unsigned int*)dst = color;
-// }
-
-void	draw_wall(int x, int start, int end, t_window *wind, int color)
+void	draw_wall(int x, int start, int end, t_window *wind, int color, t_global *glob)
 {
     int y;
 
     y = 0;
     while (y < start)
-        mlx_put_pixel(wind->image, x, y++, 0xFFFFFF);
+        mlx_put_pixel(wind->image, x, y++, createRGB(glob->scene->f[0], glob->scene->f[1], glob->scene->f[2]));
 	while (start <= end)
 	{
 		//printf("runing %d, %d, %d\n", start, end, color);
@@ -36,6 +33,6 @@ void	draw_wall(int x, int start, int end, t_window *wind, int color)
         y++;
 	}
     while (y < HEIGHT)
-        mlx_put_pixel(wind->image, x, y++, 0x000000);
+        mlx_put_pixel(wind->image, x, y++, createRGB(glob->scene->c[0], glob->scene->c[1], glob->scene->c[2]));
 
 }

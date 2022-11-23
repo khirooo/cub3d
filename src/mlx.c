@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:40:13 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/22 15:37:40 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:54:41 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	open_window(t_scene *scene)
 	t_window *wind;
 	t_global	glob;
 
-	//mlx_set_setting(MLX_MAXIMIZED, true); full screen
+	//mlx_set_setting(MLX_MAXIMIZED, true);
 	if (window_init(&wind) || !scene)
 	{
 		perror("MLX: Error\n");
