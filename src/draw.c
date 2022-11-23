@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:24:04 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/22 20:56:05 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:49:37 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 // 	dst = image->addr + (y * image->line_length + x * (image->bits_per_pixel / 8));
 // 	*(unsigned int*)dst = color;
 // }
-
-// void	draw_floceil(int x, int start, int end, t_window *wind, int color)
 
 void	draw_wall(int x, int start, int end, t_window *wind, int color)
 {
