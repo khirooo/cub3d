@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:25:32 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/22 20:50:41 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:03:26 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,26 @@ int		get_dir(double x)
 	}
 }
 
-int	check_wall(double dir_x, double dir_y, t_global *glob)
+int	check_wall(double dir_x, double dir_y, t_global *glob, double mv_spd)
 {
 	int	i;
 
 	i = 1;
-	while (i < 3)
+	while (i < 2)
 	{
-		if (glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * MOV_SPD)][(int)glob->wind->pos.y] == '1')
+		if (glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)glob->wind->pos.y] == '1')
 		{
-			printf("Check(x): map[%d][%d] = %c\n",(int)(glob->wind->pos.x + dir_x * i * MOV_SPD), (int)glob->wind->pos.y, glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * MOV_SPD)][(int)glob->wind->pos.y]);
+			printf("Check(x): map[%d][%d] = %c\n",(int)(glob->wind->pos.x + dir_x * i * mv_spd), (int)glob->wind->pos.y, glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)glob->wind->pos.y]);
 			return (0);
 		}
-		if (glob->scene->matrix_map[(int)glob->wind->pos.x][(int)(glob->wind->pos.y + dir_y * i * MOV_SPD)] == '1')
+		if (glob->scene->matrix_map[(int)glob->wind->pos.x][(int)(glob->wind->pos.y + dir_y * i * mv_spd)] == '1')
 		{
-			printf("Check(y): map[%d][%d] = %c\n",(int)glob->wind->pos.x, (int)(glob->wind->pos.y + dir_y * i * MOV_SPD), glob->scene->matrix_map[(int)glob->wind->pos.x][(int)(glob->wind->pos.y + dir_y * i * MOV_SPD)]);
+			printf("Check(y): map[%d][%d] = %c\n",(int)glob->wind->pos.x, (int)(glob->wind->pos.y + dir_y * i * mv_spd), glob->scene->matrix_map[(int)glob->wind->pos.x][(int)(glob->wind->pos.y + dir_y * i * mv_spd)]);
+			return (0);
+		}
+		if (glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)(glob->wind->pos.y + dir_y * i * mv_spd)] == '1')
+		{
+			printf("Check(x, y): map[%d][%d] = %c\n",(int)(glob->wind->pos.x + dir_x * i * mv_spd), (int)(glob->wind->pos.y + dir_y * i * mv_spd), glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)(glob->wind->pos.y + dir_y * i * mv_spd)]);
 			return (0);
 		}
 		i++;
@@ -64,18 +69,15 @@ int	check_wall(double dir_x, double dir_y, t_global *glob)
 
 void	move(double dir_x, double dir_y, t_global *glob)
 {
-	if (check_wall(dir_x, dir_y, glob))
+	double	mv_spd;
+
+	mv_spd = MOV_SPD;
+	if (mlx_is_key_down(glob->wind->mlx, MLX_KEY_LEFT_SHIFT))
+		mv_spd *= 2;
+	if (check_wall(dir_x, dir_y, glob, mv_spd))
 	{
-		if (mlx_is_key_down(glob->wind->mlx, MLX_KEY_LEFT_SHIFT))
-		{
-			glob->wind->pos.x += dir_x * 2 * MOV_SPD;
-			glob->wind->pos.y += dir_y * 2 * MOV_SPD;
-		}
-		else
-		{
-			glob->wind->pos.x += dir_x * MOV_SPD;
-			glob->wind->pos.y += dir_y * MOV_SPD;
-		}
+		glob->wind->pos.x += dir_x * mv_spd;
+		glob->wind->pos.y += dir_y * mv_spd;
 	}	
 }
 
