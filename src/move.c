@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:25:32 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/23 17:57:28 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:32:46 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,20 @@ int	check_wall(double dir_x, double dir_y, t_global *glob, double mv_spd)
 	int	i;
 
 	i = 1;
-	while (i < 2)
+	if (glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)glob->wind->pos.y] == '1')
 	{
-		if (glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)glob->wind->pos.y] == '1')
-		{
-			printf("Check(x): map[%d][%d] = %c\n",(int)(glob->wind->pos.x + dir_x * i * mv_spd), (int)glob->wind->pos.y, glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)glob->wind->pos.y]);
-			return (0);
-		}
-		if (glob->scene->matrix_map[(int)glob->wind->pos.x][(int)(glob->wind->pos.y + dir_y * i * mv_spd)] == '1')
-		{
-			printf("Check(y): map[%d][%d] = %c\n",(int)glob->wind->pos.x, (int)(glob->wind->pos.y + dir_y * i * mv_spd), glob->scene->matrix_map[(int)glob->wind->pos.x][(int)(glob->wind->pos.y + dir_y * i * mv_spd)]);
-			return (0);
-		}
-		if (glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)(glob->wind->pos.y + dir_y * i * mv_spd)] == '1')
-		{
-			printf("Check(x, y): map[%d][%d] = %c\n",(int)(glob->wind->pos.x + dir_x * i * mv_spd), (int)(glob->wind->pos.y + dir_y * i * mv_spd), glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)(glob->wind->pos.y + dir_y * i * mv_spd)]);
-			return (0);
-		}
-		i++;
+		printf("Check(x): map[%d][%d] = %c\n",(int)(glob->wind->pos.x + dir_x * i * mv_spd), (int)glob->wind->pos.y, glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)glob->wind->pos.y]);
+		return (0);
+	}
+	if (glob->scene->matrix_map[(int)glob->wind->pos.x][(int)(glob->wind->pos.y + dir_y * i * mv_spd)] == '1')
+	{
+		printf("Check(y): map[%d][%d] = %c\n",(int)glob->wind->pos.x, (int)(glob->wind->pos.y + dir_y * i * mv_spd), glob->scene->matrix_map[(int)glob->wind->pos.x][(int)(glob->wind->pos.y + dir_y * i * mv_spd)]);
+		return (0);
+	}
+	if (glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)(glob->wind->pos.y + dir_y * i * mv_spd)] == '1')
+	{
+		printf("Check(x, y): map[%d][%d] = %c\n",(int)(glob->wind->pos.x + dir_x * i * mv_spd), (int)(glob->wind->pos.y + dir_y * i * mv_spd), glob->scene->matrix_map[(int)(glob->wind->pos.x + dir_x * i * mv_spd)][(int)(glob->wind->pos.y + dir_y * i * mv_spd)]);
+		return (0);
 	}
 	return (1);
 }

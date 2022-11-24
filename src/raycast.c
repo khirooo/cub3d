@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/24 13:17:10 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:27:43 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void	raycast(void *globb)
 		{
 			tex_y = (int)tex_pos & (64 - 1);
 			tex_pos += step;
-			color = glob->scene->text_arr[2]->pixels[64 * tex_x + tex_y];
+			color = get_rgba(glob->scene->text_arr[2]->pixels[64 * tex_y * 4 + tex_x * 4], glob->scene->text_arr[2]->pixels[64 * tex_y * 4 + tex_x * 4 + 1], glob->scene->text_arr[2]->pixels[64 * tex_y * 4 + tex_x * 4 + 2], glob->scene->text_arr[2]->pixels[64 * tex_y * 4 + tex_x * 4 + 3]);
 			//printf("pos: %f, tex(%d, %d), color: %.6x\n",tex_pos, tex_x, tex_y, color);
 			if (side == 1)
 				color = (color >> 1) & 8355711;

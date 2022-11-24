@@ -1,7 +1,7 @@
-NO ./textures/wall/WoodbrickD.xpm
-SO ./textures/wall/WoodbrickL.xpm
-WE ./textures/wall/WoodbrickeagleL.xpm
-EA ./textures/wall/WoodbrickL.xpm
+NO ./textures/Wall/Brick_01-256x256.png
+SO ./textures/Wall/Brick_02-256x256.png
+WE ./textures/Wall/Brick_03-256x256.png
+EA ./textures/Wall/Brick_04-256x256.png
 
 F 0,255,251
 C 0,12,0

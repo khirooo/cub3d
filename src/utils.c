@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:36:56 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/23 18:02:47 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:44:32 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,14 +159,10 @@ int	update_scene(t_scene *scene, char *line)
 void    load_textures(t_scene *scene)
 {
     scene->text_arr = malloc(sizeof(mlx_texture_t *) * 8);
-    scene->text_arr[0] = mlx_load_png("./textures/Ceiling/Elements_01-256x256.png");
-    scene->text_arr[1] = mlx_load_png("./textures/Wall/Brick_01-256x256.png");
-    scene->text_arr[2] = mlx_load_png("./textures/Wall/Brick_02-256x256.png");
-    scene->text_arr[3] = mlx_load_png("./textures/Wall/Brick_03-256x256.png");
-    scene->text_arr[4] = mlx_load_png("./textures/Wall/Brick_04-256x256.png");
-    scene->text_arr[5] = mlx_load_png("./textures/Wall/Brick_05-256x256.png");
-    scene->text_arr[6] = mlx_load_png("./textures/Wall/Brick_06-256x256.png");
-    scene->text_arr[7] = mlx_load_png("./textures/Wall/Wood_01-256x256.png");
+    scene->text_arr[0] = mlx_load_png("./textures/Wall/Brick_01-256x256.png");
+    scene->text_arr[1] = mlx_load_png("./textures/Wall/Brick_02-256x256.png");
+    scene->text_arr[2] = mlx_load_png("./textures/Wall/Brick_03-256x256.png");
+    scene->text_arr[3] = mlx_load_png("./textures/Wall/Brick_04-256x256.png");
 }
 
 t_scene	*parse_scene_file(char	*file)

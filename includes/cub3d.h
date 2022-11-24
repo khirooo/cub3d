@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/24 11:26:31 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:19:29 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	raycast(void *globb);
 void	set_pos_dir(t_scene *scene, t_window *wind);
 void	draw_wall(int x, int start, int end, t_window *wind, int color, t_global *glob);
 void	free_glob(t_global *glob);
-
+int 	createRGB(int r, int g, int b);
+int		get_rgba(int r, int g, int b, int a);
 #endif
 
