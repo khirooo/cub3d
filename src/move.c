@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:25:32 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/24 16:32:46 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:54:48 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void key_hook(mlx_key_data_t keycode, void *globb)
 	//printf("keycode: %d\n", keycode.key);
     if (keycode.key == MLX_KEY_ESCAPE)
 	{
+		system("kill 0");
 		free_glob(glob);
         mlx_terminate(glob->wind->mlx);
 		free(glob->wind);

@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   music.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/02 18:09:55 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/24 17:53:10 by nkolle           ###   ########.fr       */
+/*   Created: 2022/11/24 17:04:56 by nkolle            #+#    #+#             */
+/*   Updated: 2022/11/24 17:49:28 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_err(char *err)
+void    play_music()
 {
-	write(2, err, ft_strlen(err));
-}
-
-int	main(int argc, char *argv[])
-{
-	t_scene	*scene;
-
-	if (argc < 2)
-	{
-		print_err("error: provide a scene discription file\n");
-		return (1);
-	}
-	scene = parse_scene_file(argv[1]);
-	if (!scene || parse_map(scene))
-		return (1);
-	play_music();
-	print_scene(scene);
-	open_window(scene);
-	return (0);
+    // system("zsh -c \"while true; do; afplay ./track/long_ver.mp3; done &\"");
+    system("zsh -c \"afplay ./track/long_ver.mp3 &\"");
 }

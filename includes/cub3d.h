@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/24 16:19:29 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:53:33 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void	draw_wall(int x, int start, int end, t_window *wind, int color, t_global *g
 void	free_glob(t_global *glob);
 int 	createRGB(int r, int g, int b);
 int		get_rgba(int r, int g, int b, int a);
+void	play_music();
 #endif
 
