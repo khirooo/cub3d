@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/24 16:27:43 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:25:10 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ void	draw_buff(t_global *glob, int32_t buffer[WIDTH][HEIGHT])
 		}
 		c1++;
 	}
+}
+
+int		get_tex_num(int	side, double ray_x, double ray_y)
+{
+	if (side == 0 && ray_x > 0)
+		return (1);
+	if (side == 0 && ray_x < 0)
+		return (0);
+	if (side == 1 && ray_y < 0)
+		return (3);
+	if (side == 1 && ray_y > 0)
+		return (2);
+	return (0);
 }
 
 void	raycast(void *globb)
@@ -185,17 +198,25 @@ void	raycast(void *globb)
 		int y1;
 		y1 = start;
 		int	tex_y;
+		mlx_texture_t *tex = glob->scene->text_arr[get_tex_num(side, raydir.x, raydir.y)];
+		
+		int m = 0;
+    	while (m < start)
+       	 buffer[x][m++] = createRGB(glob->scene->f[0], glob->scene->f[1], glob->scene->f[2]);
 		while (y1 < end)
 		{
 			tex_y = (int)tex_pos & (64 - 1);
 			tex_pos += step;
-			color = get_rgba(glob->scene->text_arr[2]->pixels[64 * tex_y * 4 + tex_x * 4], glob->scene->text_arr[2]->pixels[64 * tex_y * 4 + tex_x * 4 + 1], glob->scene->text_arr[2]->pixels[64 * tex_y * 4 + tex_x * 4 + 2], glob->scene->text_arr[2]->pixels[64 * tex_y * 4 + tex_x * 4 + 3]);
+			color = get_rgba(tex->pixels[64 * tex_y * 4 + tex_x * 4], tex->pixels[64 * tex_y * 4 + tex_x * 4 + 1], tex->pixels[64 * tex_y * 4 + tex_x * 4 + 2], tex->pixels[64 * tex_y * 4 + tex_x * 4 + 3]);
 			//printf("pos: %f, tex(%d, %d), color: %.6x\n",tex_pos, tex_x, tex_y, color);
 			if (side == 1)
 				color = (color >> 1) & 8355711;
 			buffer[x][y1] = color;
 			y1++;
+			m++;
 		}
+    	while (m < HEIGHT)
+       		buffer[x][m++] = createRGB(glob->scene->c[0], glob->scene->c[1], glob->scene->c[2]);
 		//getchar();
 		// color = 0xFF0000FF;
 		// if(side == 1)

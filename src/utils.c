@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:36:56 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/24 17:44:32 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:16:24 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +159,10 @@ int	update_scene(t_scene *scene, char *line)
 void    load_textures(t_scene *scene)
 {
     scene->text_arr = malloc(sizeof(mlx_texture_t *) * 8);
-    scene->text_arr[0] = mlx_load_png("./textures/Wall/Brick_01-256x256.png");
-    scene->text_arr[1] = mlx_load_png("./textures/Wall/Brick_02-256x256.png");
-    scene->text_arr[2] = mlx_load_png("./textures/Wall/Brick_03-256x256.png");
-    scene->text_arr[3] = mlx_load_png("./textures/Wall/Brick_04-256x256.png");
+    scene->text_arr[0] = mlx_load_png(scene->no);
+    scene->text_arr[1] = mlx_load_png(scene->so);
+    scene->text_arr[2] = mlx_load_png(scene->we);
+    scene->text_arr[3] = mlx_load_png(scene->ea);
 }
 
 t_scene	*parse_scene_file(char	*file)
