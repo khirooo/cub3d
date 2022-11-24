@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:36:56 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/05 21:27:42 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/23 18:02:47 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,45 +103,70 @@ int	update_scene(t_scene *scene, char *line)
 		return (1);
 	if (!ft_strcmp(type, "NO"))
 	{
+		free(type);
 		if (scene->no != NULL)
 			return (1);
 		scene->no = get_n_word(scene, line, 2);
 	}
 	else if (!ft_strcmp(type, "EA"))
 	{
+		free(type);
 		if (scene->ea != NULL)
 			return (1);
 		scene->ea = get_n_word(scene, line, 2);
 	}
 	else if (!ft_strcmp(type, "WE"))
 	{
+		free(type);
 		if (scene->we != NULL)
 			return (1);
 		scene->we = get_n_word(scene, line, 2);
 	}
 	else if (!ft_strcmp(type, "SO"))
 	{
+		free(type);
 		if (scene->so != NULL)
 			return (1);
 		scene->so = get_n_word(scene, line, 2);
 	}
 	else if (!ft_strcmp(type, "F"))
 	{
+		free(type);
 		if (scene->f != NULL)
 			return (1);
 		scene->f = get_rgb(get_n_word(scene, line, 2));
 	}
 	else if (!ft_strcmp(type, "C"))
 	{
+		free(type);
 		if (scene->c != NULL)
 			return (1);
 		scene->c = get_rgb(get_n_word(scene, line, 2));
 	}
 	else if (!ft_strcmp(type, "map"))
+	{
+		free(type);
 		return (add_to_map(scene, line));
+	}
 	else
+	{
+		free(type);	
 		return (1);
+	}
 	return (0);
+}
+
+void    load_textures(t_scene *scene)
+{
+    scene->text_arr = malloc(sizeof(mlx_texture_t *) * 8);
+    scene->text_arr[0] = mlx_load_png("./textures/Ceiling/Elements_01-256x256.png");
+    scene->text_arr[1] = mlx_load_png("./textures/Wall/Brick_01-256x256.png");
+    scene->text_arr[2] = mlx_load_png("./textures/Wall/Brick_02-256x256.png");
+    scene->text_arr[3] = mlx_load_png("./textures/Wall/Brick_03-256x256.png");
+    scene->text_arr[4] = mlx_load_png("./textures/Wall/Brick_04-256x256.png");
+    scene->text_arr[5] = mlx_load_png("./textures/Wall/Brick_05-256x256.png");
+    scene->text_arr[6] = mlx_load_png("./textures/Wall/Brick_06-256x256.png");
+    scene->text_arr[7] = mlx_load_png("./textures/Wall/Wood_01-256x256.png");
 }
 
 t_scene	*parse_scene_file(char	*file)
@@ -175,5 +200,6 @@ t_scene	*parse_scene_file(char	*file)
 		free(line);
 		line = get_next_line(fd);
 	}
+	load_textures(scene);
 	return (scene);
 }

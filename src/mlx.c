@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:40:13 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/23 14:54:41 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:12:58 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,20 @@ int	window_init(t_window **wind)
 	if (mlx_image_to_window((*wind)->mlx, (*wind)->image, 0, 0) < 0)
 		return (1);
 	(*wind)->plan.x = 0;
-	(*wind)->plan.y = 0.66;
+	(*wind)->plan.y = 1;
 	return (0);
+}
+
+void	print_text(mlx_texture_t **text_arr)
+{
+	int	i;
+
+	i = 0;
+	while(i < 8)
+	{
+		printf("text %d:\n	width: %d\n	height: %d\n", i,text_arr[i]->width, text_arr[i]->height);
+		i++;	
+	}
 }
 
 void	open_window(t_scene *scene)
@@ -44,7 +56,27 @@ void	open_window(t_scene *scene)
 	glob.wind = wind;
 	glob.scene = scene;
 	set_pos_dir(scene, wind);
-	mlx_key_hook(wind->mlx, &key_hook, (void *)&glob);
-	mlx_loop_hook(wind->mlx, raycast, (void *)&glob);
+	print_text(scene->text_arr);
+	mlx_image_t *m;
+	m = mlx_texture_to_image(wind->mlx, scene->text_arr[1]);
+	int	i = 0, j;
+	//mlx_image_to_window(wind->mlx, m, 5, 5);
+	while (i < m->width)
+	{
+		j = 0;
+		while (j < m->height)
+		{
+			int32_t color = 0;
+			color = color & m->pixels[i * m->width + j];
+			color = color << 8;
+			color = color | 4294967296;
+			mlx_put_pixel(wind->image, i, j, color);
+			j++;
+		}
+		i++;
+	}
+	
+	// mlx_key_hook(wind->mlx, &key_hook, (void *)&glob);
+	// mlx_loop_hook(wind->mlx, raycast, (void *)&glob);
 	mlx_loop(wind->mlx);
 }

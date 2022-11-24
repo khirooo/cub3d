@@ -6,11 +6,27 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/23 15:36:17 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:17:10 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+void	draw_buff(t_global *glob, int32_t buffer[WIDTH][HEIGHT])
+{
+    int	c1 = 0 ,c2;
+	while (c1 < WIDTH)
+	{
+		c2 = 0;
+		while (c2 < HEIGHT)
+		{
+			mlx_put_pixel(glob->wind->image, c1, c2, buffer[c1][c2]);
+			c2++;
+		}
+		c1++;
+	}
+}
 
 void	raycast(void *globb)
 {
@@ -28,11 +44,24 @@ void	raycast(void *globb)
 	int	line_h;
 	int	start;
 	int	end;
-	int	color;
+	int		color;
 	x = 0;
 	int	a;
 	int	b;
+	int		buffer[WIDTH][HEIGHT];
 
+	int	c1 = 0 ,c2;
+	//clear buffer
+	while (c1 < WIDTH)
+	{
+		c2 = 0;
+		while (c2 < HEIGHT)
+		{
+			buffer[c1][c2] = 0;
+			c2++;
+		}
+		c1++;
+	}
 	mlx_get_mouse_pos(glob->wind->mlx, &a, &b);
 	if (a > 500)
 	{
@@ -133,12 +162,62 @@ void	raycast(void *globb)
 		end =  line_h / 2 + HEIGHT / 2;
 		if (end >= HEIGHT)
 			end = HEIGHT - 1;
-		color = 0xFF0000FF;
-		if(side == 1)
-			color = color / 2;
-		draw_wall(x, start, end, glob->wind, color, glob);
+		
+		//texture to use 
+		int	texNum = 0;
+		// where did the ray hit the wall ? (relative to the map)
+		double	wall_x;
+		if (side == 0)
+			wall_x = glob->wind->pos.y + perpWallDist * raydir.y;
+		else
+			wall_x = glob->wind->pos.x + perpWallDist * raydir.x;
+		// where did the ray hit the wall ? (relative to the wall)
+		wall_x = wall_x - (double)((int)wall_x);
+		// wich coordinate is it on the texture ?
+		int	tex_x = (int)(wall_x * (double)64);
+		// this might be optional (to not have the same text on two facing sides of the wall)
+		if ((side == 0 && raydir.x > 0) || (side == 1 && raydir.y < 0))
+			tex_x = 64 - tex_x  -1;
+		// whats the next pixel on the line ? (step = 1 if your super close to the wall gets bigger the farther u go)
+		double	step = 1.0 * glob->scene->text_arr[2]->height / line_h;
+		//not sure ...
+		double tex_pos = (start - HEIGHT / 2 + line_h / 2) * step;
+		int y1;
+		y1 = start;
+		int	tex_y;
+		while (y1 < end)
+		{
+			tex_y = (int)tex_pos & (64 - 1);
+			tex_pos += step;
+			color = glob->scene->text_arr[2]->pixels[64 * tex_x + tex_y];
+			//printf("pos: %f, tex(%d, %d), color: %.6x\n",tex_pos, tex_x, tex_y, color);
+			if (side == 1)
+				color = (color >> 1) & 8355711;
+			buffer[x][y1] = color;
+			y1++;
+		}
+		//getchar();
+		// color = 0xFF0000FF;
+		// if(side == 1)
+		// 	color = color / 2;
+		// draw_wall(x, start, end, glob->wind, color, glob);
 		x++;
 	}
+	draw_buff(glob, buffer);
+	c1 = 0;
+	//clear buffer
+	while (c1 < WIDTH)
+	{
+		c2 = 0;
+		while (c2 < HEIGHT)
+		{
+			//printf("buff:%d\n", buffer[c1][c2]);
+			buffer[c1][c2] = 0;
+			c2++;
+		}
+		c1++;
+	}
+	//getchar();
 }
 
 void	set_pos_dir(t_scene *scene, t_window *wind)

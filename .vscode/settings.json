@@ -1,6 +1,10 @@
 {
 	"files.associations": {
 		"ios": "c",
-		"limits.h": "c"
+		"limits.h": "c",
+		"memory": "c",
+		"tuple": "c",
+		"type_traits": "c",
+		"unordered_map": "c"
 	}
 }
