@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/24 17:53:33 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/11/26 18:34:45 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 #define WIDTH 1000
 #define HEIGHT 1000
-#define	MOV_SPD 0.4
+#define	MOV_SPD 0.1
 # define KEY_A 0
 # define KEY_D 2
 # define KEY_W 13
@@ -44,6 +44,20 @@ typedef	struct s_point
 	double	y;
 }	t_point;
 
+typedef	struct s_d_point
+{
+	int	x;
+	int	y;
+}	t_d_point;
+
+typedef	struct s_vline
+{
+	int			height;
+	int			start;
+	int			end;
+	t_d_point	tex;
+}	t_vline;
+
 typedef	struct s_scene
 {
 	char	*no;
@@ -57,6 +71,19 @@ typedef	struct s_scene
 	char	**matrix_map;
 }	t_scene;
 
+typedef	struct s_ray
+{
+	t_point	cam;
+	t_point	raydir;
+	t_point	sqr_map;
+	t_point	step;
+	t_point	sideDist;
+	t_point	delta_dist;
+	int		side;
+	double	perpWallDist;
+	double	wall_x;
+}	t_ray;
+
 typedef	struct s_window
 {
 	mlx_t		*mlx;
@@ -64,13 +91,14 @@ typedef	struct s_window
 	t_point		pos;
 	t_point		dir;
 	t_point		plan;
-		
+	int			x;
 }	t_window;
 
 typedef	struct s_global
 {
 	t_window	*wind;
 	t_scene		*scene;
+	int			buffer[WIDTH][HEIGHT];
 } t_global;
 
 void	print_err(char *err);
@@ -85,8 +113,9 @@ void	raycast(void *globb);
 void	set_pos_dir(t_scene *scene, t_window *wind);
 void	draw_wall(int x, int start, int end, t_window *wind, int color, t_global *glob);
 void	free_glob(t_global *glob);
-int 	createRGB(int r, int g, int b);
 int		get_rgba(int r, int g, int b, int a);
 void	play_music();
+void	mouse_rotate(t_window *wind, int a, int flag);
+void	move(double dir_x, double dir_y, t_global *glob);
 #endif
 

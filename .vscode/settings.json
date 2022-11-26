@@ -5,6 +5,7 @@
 		"memory": "c",
 		"tuple": "c",
 		"type_traits": "c",
-		"unordered_map": "c"
+		"unordered_map": "c",
+		"__node_handle": "c"
 	}
 }
