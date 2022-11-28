@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_keys.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:00:02 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/17 12:27:27 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/11/28 03:57:00 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 //     {
 //         printf("East facing\n");
 //         glob->wind->dir.x += 1;
-// 		glob->wind->dir.y -= 1;   
+// 		glob->wind->dir.y -= 1;
 //     }
 //     else if (glob->wind->dir.x == 1)
 //     {
@@ -50,7 +50,7 @@
 // 	else if (glob->wind->dir.x == 0 && glob->wind->dir.y == -1)
 //     {
 //         glob->wind->dir.x += 1;
-// 		glob->wind->dir.y += 1;   
+// 		glob->wind->dir.y += 1;
 //     }
 //     else if (glob->wind->dir.x == 1)
 //     {

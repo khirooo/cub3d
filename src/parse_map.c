@@ -6,11 +6,11 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:42:38 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/04 19:36:44 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/28 00:23:37 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 int	check_map(char **map)
 {
@@ -21,17 +21,16 @@ int	check_map(char **map)
 	while (map[i])
 	{
 		j = 0;
-		while(j < ft_strlen(map[i]))
+		while (j < ft_strlen(map[i]))
 		{
-			if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'N'
+			if ((map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'N'
 				&& map[i][j] != 'S' && map[i][j] != 'E' && map[i][j] != 'W'
 				&& map[i][j] != ' ')
-				return (1);
-			if (map[i][j] == '0' && (i == 0 || !map[i + 1]
+				|| (map[i][j] == '0' && (i == 0 || !map[i + 1]
 				|| ft_strlen(map[i - 1]) <= j || map[i - 1][j] == ' '
 				|| ft_strlen(map[i + 1]) <= j || map[i + 1][j] == ' '
 				|| j == 0 || !map[i][j + 1] || map[i][j - 1] == ' '
-				|| map[i][j + 1] == ' '))
+				|| map[i][j + 1] == ' ')))
 				return (1);
 			j++;
 		}
@@ -40,7 +39,7 @@ int	check_map(char **map)
 	return (0);
 }
 
-int check_rgb(int *rgb)
+int	check_rgb(int *rgb)
 {
 	int	i;
 

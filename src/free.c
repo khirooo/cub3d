@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:39:52 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/23 18:03:41 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/27 23:25:35 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,3 @@ void	free_glob(t_global *glob)
 	free_scene(glob->scene);
 	mlx_delete_image(glob->wind->mlx, glob->wind->image);
 }
-

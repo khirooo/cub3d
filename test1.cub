@@ -1,10 +1,12 @@
 NO ./textures/Wall/Brick_05-256x256.png
 SO ./textures/Ceiling/Elements_02-256x256.png
 WE ./textures/Ceiling/Metal_19-256x256.png
-EA ./textures/Wall/Brick_04-256x256.png
 
-F 0,255,251
-C 0,12,0
+
+
+F 0,0,0
+EA ./textures/Wall/Brick_04-256x256.png    
+C 2,2,100
 
       111
      10001

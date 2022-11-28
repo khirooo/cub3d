@@ -6,11 +6,11 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:40:13 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/26 18:37:44 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/28 00:17:50 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 int	window_init(t_window **wind)
 {
@@ -26,27 +26,14 @@ int	window_init(t_window **wind)
 	return (0);
 }
 
-void	print_text(mlx_texture_t **text_arr)
+int	get_rgba(int r, int g, int b, int a)
 {
-	int	i;
-
-	i = 0;
-	while(i < 8)
-	{
-		printf("text %d:\n	width: %d\n	height: %d\n", i,text_arr[i]->width, \
-			text_arr[i]->height);
-		i++;	
-	}
-}
-
-int get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 void	open_window(t_scene *scene)
 {
-	t_window *wind;
+	t_window	*wind;
 	t_global	glob;
 
 	if (window_init(&wind) || !scene)

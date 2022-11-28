@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:55 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/25 21:30:51 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/28 09:16:00 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 	scene = parse_scene_file(argv[1]);
 	if (!scene || parse_map(scene))
 		return (1);
-	//play_music();
+	play_music();
 	print_scene(scene);
 	open_window(scene);
 	return (0);

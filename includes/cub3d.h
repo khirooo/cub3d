@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/26 18:34:45 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/28 09:14:05 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ typedef	struct s_scene
 typedef	struct s_ray
 {
 	t_point	cam;
-	t_point	raydir;
+	t_point	dir;
 	t_point	sqr_map;
 	t_point	step;
 	t_point	sideDist;
-	t_point	delta_dist;
+	t_point	dist;
 	int		side;
 	double	perpWallDist;
 	double	wall_x;
@@ -118,4 +118,3 @@ void	play_music();
 void	mouse_rotate(t_window *wind, int a, int flag);
 void	move(double dir_x, double dir_y, t_global *glob);
 #endif
-

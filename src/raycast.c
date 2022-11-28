@@ -6,16 +6,15 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:47:25 by nkolle            #+#    #+#             */
-/*   Updated: 2022/11/26 19:11:24 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/11/28 04:00:08 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
 void	draw_buff(t_global *glob, int32_t buffer[WIDTH][HEIGHT])
 {
-    int	i;
+	int	i;
 	int	j;
 
 	i = 0;
@@ -31,7 +30,7 @@ void	draw_buff(t_global *glob, int32_t buffer[WIDTH][HEIGHT])
 	}
 }
 
-int		get_tex_num(int	side, double ray_x, double ray_y)
+int	tex_num(int side, double ray_x, double ray_y)
 {
 	if (side == 0 && ray_x > 0)
 		return (1);
@@ -67,12 +66,13 @@ void	mouse_rotate(t_window *wind, int a, int flag)
 	}
 }
 
-int		get_pixel_color(mlx_texture_t *tex, t_vline *line)
+int	get_pixel_color(mlx_texture_t *tex, t_vline *line)
 {
-	return (get_rgba(tex->pixels[64 * line->tex.y * 4 + line->tex.x * 4],
-			tex->pixels[64 * line->tex.y * 4 + line->tex.x * 4 + 1],
-			tex->pixels[64 * line->tex.y * 4 + line->tex.x * 4 + 2],
-			tex->pixels[64 * line->tex.y * 4 + line->tex.x * 4 + 3]));
+	return (get_rgba(tex->pixels[64 * line->tex.y * 4 + line->tex.x * 4], \
+				tex->pixels[64 * line->tex.y * 4 + line->tex.x * 4 + 1], \
+				tex->pixels[64 * line->tex.y * 4 + line->tex.x * 4 + 2], \
+				tex->pixels[64 * line->tex.y * 4 + line->tex.x * 4
+				+ 3]));
 }
 
 void	fill_buff(t_global *glob, t_ray ray, int x, t_vline *line)
@@ -80,11 +80,11 @@ void	fill_buff(t_global *glob, t_ray ray, int x, t_vline *line)
 	double			step;
 	double			tex_pos;
 	int				i;
-	mlx_texture_t *tex;
+	mlx_texture_t	*tex;
 
 	step = 1.0 * glob->scene->text_arr[2]->height / line->height;
 	tex_pos = (line->start - HEIGHT / 2 + line->height / 2) * step;
-	tex = glob->scene->text_arr[get_tex_num(ray.side, ray.raydir.x, ray.raydir.y)];
+	tex = glob->scene->text_arr[tex_num(ray.side, ray.dir.x, ray.dir.y)];
 	i = line->start;
 	while (line->start < line->end)
 	{
@@ -98,79 +98,79 @@ void	fill_buff(t_global *glob, t_ray ray, int x, t_vline *line)
 		i++;
 	}
 	while (i < HEIGHT)
-		glob->buffer[x][i++] = get_rgba(glob->scene->c[0], glob->scene->c[1],
-								glob->scene->c[2], 255);
+		glob->buffer[x][i++] = get_rgba(glob->scene->f[0], glob->scene->f[1],
+				glob->scene->f[2], 255);
 }
 
 void	hit_process(t_global *glob, t_ray ray, int x)
 {
-	t_vline		line;
-	int			i;
+	t_vline	line;
+	int		i;
 
-	line.height =(int)(HEIGHT * 0.6 / ray.perpWallDist);
+	line.height = (int)(HEIGHT * 0.6 / ray.perpWallDist);
 	line.start = -line.height / 2 + HEIGHT / 2;
 	if (line.start < 0)
 		line.start = 0;
-	line.end =  line.height / 2 + HEIGHT / 2;
+	line.end = line.height / 2 + HEIGHT / 2;
 	if (line.end >= HEIGHT)
 		line.end = HEIGHT - 1;
 	if (ray.side == 0)
-		ray.wall_x = glob->wind->pos.y + ray.perpWallDist * ray.raydir.y;
+		ray.wall_x = glob->wind->pos.y + ray.perpWallDist * ray.dir.y;
 	else
-		ray.wall_x = glob->wind->pos.x + ray.perpWallDist * ray.raydir.x;
+		ray.wall_x = glob->wind->pos.x + ray.perpWallDist * ray.dir.x;
 	ray.wall_x = ray.wall_x - (double)((int)ray.wall_x);
 	line.tex.x = (int)(ray.wall_x * (double)64);
-	if ((ray.side== 0 && ray.raydir.x > 0) || (ray.side== 1 && ray.raydir.y < 0))
-		line.tex.x = 64 - line.tex.x  -1;
+	if ((ray.side == 0 && ray.dir.x > 0) || (ray.side == 1 && ray.dir.y < 0))
+		line.tex.x = 64 - line.tex.x - 1;
 	i = 0;
 	while (i < line.start)
-		glob->buffer[x][i++] = get_rgba(glob->scene->f[0], glob->scene->f[1], \
-			glob->scene->f[2], 255);
+		glob->buffer[x][i++] = get_rgba(glob->scene->c[0], glob->scene->c[1],
+				glob->scene->c[2], 255);
 	fill_buff(glob, ray, x, &line);
 }
 
-void	ray_pos_dir(t_global *glob, t_ray *ray)
+void	ray_pos_dir(t_window *wind, t_ray *ray)
 {
-	ray->raydir.y = glob->wind->dir.y + glob->wind->plan.y * ray->cam.x;
-	ray->sqr_map.x = (int)glob->wind->pos.x;
-	ray->sqr_map.y = (int)glob->wind->pos.y;
-	ray->delta_dist.x = DBL_MAX;
-	if (ray->raydir.x)
-		ray->delta_dist.x = fabs(1.0 / ray->raydir.x);
-	ray->delta_dist.y = DBL_MAX;
-	if (ray->raydir.y)
-		ray->delta_dist.y = fabs(1.0 / ray->raydir.y);
+	ray->dir.y = wind->dir.y + wind->plan.y * ray->cam.x;
+	ray->sqr_map.x = (int)wind->pos.x;
+	ray->sqr_map.y = (int)wind->pos.y;
+	ray->dist.x = DBL_MAX;
+	if (ray->dir.x)
+		ray->dist.x = fabs(1.0 / ray->dir.x);
+	ray->dist.y = DBL_MAX;
+	if (ray->dir.y)
+		ray->dist.y = fabs(1.0 / ray->dir.y);
 	ray->step.x = -1.0;
-	ray->sideDist.x = (glob->wind->pos.x - ray->sqr_map.x) * ray->delta_dist.x;
-	if (ray->raydir.x >= 0)
+	ray->sideDist.x = (wind->pos.x - ray->sqr_map.x) * ray->dist.x;
+	if (ray->dir.x >= 0)
 	{
 		ray->step.x = 1.0;
-		ray->sideDist.x = (ray->sqr_map.x + 1.0 - glob->wind->pos.x) * ray->delta_dist.x;
+		ray->sideDist.x = (ray->sqr_map.x + 1.0 - wind->pos.x) * ray->dist.x;
 	}
 	ray->step.y = -1.0;
-	ray->sideDist.y = (glob->wind->pos.y - ray->sqr_map.y) * ray->delta_dist.y;
-	if (ray->raydir.y >= 0)
+	ray->sideDist.y = (wind->pos.y - ray->sqr_map.y) * ray->dist.y;
+	if (ray->dir.y >= 0)
 	{
 		ray->step.y = 1.0;
-		ray->sideDist.y = (ray->sqr_map.y + 1.0 - glob->wind->pos.y) * ray->delta_dist.y;
+		ray->sideDist.y = (ray->sqr_map.y + 1.0 - wind->pos.y) * ray->dist.y;
 	}
 }
 
-int		check_for_wall(t_global *glob, t_ray *ray)
+int	check_for_wall(char **matrix_map, t_ray *ray)
 {
 	if (ray->sideDist.x < ray->sideDist.y)
 	{
-		ray->sideDist.x += ray->delta_dist.x;
+		ray->sideDist.x += ray->dist.x;
 		ray->sqr_map.x += (int)ray->step.x;
-		ray->side= 0;
+		ray->side = 0;
 	}
 	else
 	{
-		ray->sideDist.y += ray->delta_dist.y;
+		ray->sideDist.y += ray->dist.y;
 		ray->sqr_map.y += (int)ray->step.y;
-		ray->side= 1;
+		ray->side = 1;
 	}
-	if (glob->scene->matrix_map[(int)ray->sqr_map.x][(int)ray->sqr_map.y] == '1')
+	if (matrix_map[(int)ray->sqr_map.x][(int)ray->sqr_map.y] == '1')
 		return (1);
 	return (0);
 }
@@ -193,23 +193,25 @@ void	key_move(t_global *glob)
 
 void	raycast(void *globb)
 {
-	int		x;
-	t_ray	ray;
-	t_global *glob = globb;
+	int			x;
+	t_ray		ray;
+	t_global	*glob;
 
+	glob = globb;
 	mouse_rotate(glob->wind, 69, 1);
 	key_move(glob);
 	x = 0;
 	while (x < WIDTH)
 	{
 		ray.cam.x = ((2 * x) / (double)WIDTH) - 1;
-		ray.raydir.x = glob->wind->dir.x + glob->wind->plan.x * ray.cam.x;
-		ray_pos_dir(glob, &ray);	
-		while (!check_for_wall(glob, &ray));
-		if(ray.side == 0)
-			ray.perpWallDist = (ray.sideDist.x - ray.delta_dist.x);
+		ray.dir.x = glob->wind->dir.x + glob->wind->plan.x * ray.cam.x;
+		ray_pos_dir(glob->wind, &ray);
+		while (!check_for_wall(glob->scene->matrix_map, &ray))
+			;
+		if (ray.side == 0)
+			ray.perpWallDist = (ray.sideDist.x - ray.dist.x);
 		else
-			ray.perpWallDist = (ray.sideDist.y - ray.delta_dist.y);
+			ray.perpWallDist = (ray.sideDist.y - ray.dist.y);
 		hit_process(glob, ray, x);
 		x++;
 	}

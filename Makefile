@@ -6,13 +6,24 @@
 #    By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 13:59:31 by kfergani          #+#    #+#              #
-#    Updated: 2022/11/25 16:45:01 by kfergani         ###   ########.fr        #
+#    Updated: 2022/11/28 06:03:11 by kfergani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= cub3d
+NAME 		= cub3D
 
-SOURCES 	= $(shell find ./src -name "*.c") $(shell find ./get_next_line -name "*.c")
+SRCDIR		= src/
+
+GNLDIR		= get_next_line/
+
+GNLFILES	= get_next_line.c get_next_line_utils.c
+
+SRCFILES	= draw.c free.c main.c mlx.c move.c music.c parse_map.c raycast.c \
+			utils_keys.c utils.c utils2.c
+
+SOURCES 	= $(addprefix $(SRCDIR), $(SRCFILES))
+SOURCES		+= $(addprefix $(GNLDIR), $(GNLFILES))
+
 HEADERS		= ./includes
 
 LIBFT		= ./libft/libft.a
