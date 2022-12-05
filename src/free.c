@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:39:52 by kfergani          #+#    #+#             */
-/*   Updated: 2022/12/05 20:03:11 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:06:10 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,8 @@ void	free_glob(t_global *glob)
 	mlx_delete_image(glob->wind->mlx, glob->wind->image);
 }
 
-void	switch_scene(t_global *glob)
+void	change_scene(t_global *glob)
 {
-	free(glob->scene->no);
-	free(glob->scene->so);
-	free(glob->scene->we);
-	free(glob->scene->ea);
-	free(glob->scene->f);
-	free(glob->scene->c);
-	system("killall afplay");
 	if (glob->mode == 1)
 	{
 		glob->scene->c = get_rgb(ft_strdup("0,0,0"));
@@ -76,5 +69,17 @@ void	switch_scene(t_global *glob)
 		system("zsh -c \"afplay ./track/chillmode.mp3 &\"");
 		glob->mode = 1;
 	}
+}
+
+void	switch_scene(t_global *glob)
+{
+	free(glob->scene->no);
+	free(glob->scene->so);
+	free(glob->scene->we);
+	free(glob->scene->ea);
+	free(glob->scene->f);
+	free(glob->scene->c);
+	system("killall afplay");
+	change_scene(glob);
 	load_textures(glob->scene);
 }

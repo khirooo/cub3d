@@ -6,7 +6,7 @@
 /*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:09:55 by kfergani          #+#    #+#             */
-/*   Updated: 2022/12/05 17:01:52 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 20:08:03 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	main(int argc, char *argv[])
 	if (!scene || parse_map(scene))
 		return (1);
 	play_music();
-	// print_scene(scene);
 	open_window(scene);
 	return (0);
 }
