@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 19:42:38 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/28 00:23:37 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:56:34 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,21 @@ int	parse_map(t_scene *scene)
 		printf("Error: not valid map\n");
 		return (1);
 	}
+	return (0);
+}
+
+int	add_to_map(t_scene *scene, char *line)
+{
+	int	i;
+
+	if (scene->c == NULL || scene->f == NULL || scene->ea == NULL
+		|| scene->no == NULL || scene->so == NULL || scene->we == NULL)
+		return (1);
+	i = 0;
+	while (line[i] && line[i] == ' ')
+		i++;
+	if (scene->str_map != NULL && is_empty(line))
+		return (1);
+	scene->str_map = ft_strjoin_withnull(scene->str_map, line, 1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+         #
+#    By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/03 13:59:31 by kfergani          #+#    #+#              #
-#    Updated: 2022/11/28 06:03:11 by kfergani         ###   ########.fr        #
+#    Updated: 2022/12/05 16:46:50 by nkolle           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ GNLDIR		= get_next_line/
 GNLFILES	= get_next_line.c get_next_line_utils.c
 
 SRCFILES	= draw.c free.c main.c mlx.c move.c music.c parse_map.c raycast.c \
-			utils_keys.c utils.c utils2.c
+			utils.c utils2.c set.c mouse_rotate.c
 
 SOURCES 	= $(addprefix $(SRCDIR), $(SRCFILES))
 SOURCES		+= $(addprefix $(GNLDIR), $(GNLFILES))
@@ -33,7 +33,7 @@ OBJECTS 	= $(patsubst %.c, %.o, $(SOURCES))
 
 CC			= 	gcc
 CFLAGS 		= -Wall -Wextra -Werror -lglfw 
-MLXFLAGS	= /Users/kfergani/.brew/opt/glfw/lib/
+MLXFLAGS	= /Users/$(USER)/.brew/opt/glfw/lib/
 
 all: $(NAME)
 

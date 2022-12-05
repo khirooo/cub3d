@@ -6,7 +6,7 @@
 /*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 16:07:08 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/17 12:48:00 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 16:55:21 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,43 +35,88 @@ void	free_dp(char **i)
 	}
 }
 
-void	print_map(char *map)
+void	load_textures(t_scene *scene)
 {
-	char	**lines;
+	scene->text_arr = malloc(sizeof(mlx_texture_t *) * 8);
+	scene->text_arr[0] = mlx_load_png(scene->no);
+	scene->text_arr[1] = mlx_load_png(scene->so);
+	scene->text_arr[2] = mlx_load_png(scene->we);
+	scene->text_arr[3] = mlx_load_png(scene->ea);
+}
+
+int	*get_rgb(char *line)
+{
+	int		*int_rgb;
+	char	**char_rgb;
 	int		i;
 
-	lines = ft_split(map, '\n');
+	char_rgb = ft_split(line, ',');
+	free(line);
+	int_rgb = (int *)malloc(3 * sizeof(int));
+	if (!char_rgb || !int_rgb)
+		return (NULL);
 	i = 0;
-	while (lines[i])
+	while (i < 3 && char_rgb[i] != NULL)
 	{
-		printf("%s\n", lines[i]);
+		int_rgb[i] = ft_atoi(char_rgb[i]);
 		i++;
 	}
-	free_dp(lines);
+	if (char_rgb[i] != NULL || i != 3)
+		return (NULL);
+	return (int_rgb);
 }
 
-void	print_rgb(int *rgb)
+int	init_scene(t_scene **scene)
 {
-	int	i;
-
-	i = 0;
-	while (i < 3)
-	{
-		printf("%d, ", rgb[i]);
-		i++;
-	}
-	printf("\n");
+	(*scene) = (t_scene *)malloc(sizeof(t_scene));
+	if (!(*scene))
+		return (1);
+	(*scene)->ea = NULL;
+	(*scene)->so = NULL;
+	(*scene)->we = NULL;
+	(*scene)->no = NULL;
+	(*scene)->f = NULL;
+	(*scene)->c = NULL;
+	(*scene)->str_map = NULL;
+	return (0);
 }
+// void	print_map(char *map)
+// {
+// 	char	**lines;
+// 	int		i;
 
-void	print_scene(t_scene *scene)
-{
-	printf("NO: %s\n", scene->no);
-	printf("SO: %s\n", scene->so);
-	printf("WE: %s\n", scene->we);
-	printf("EA: %s\n", scene->ea);
-	printf("F ");
-	print_rgb(scene->f);
-	printf("C ");
-	print_rgb(scene->c);
-	print_map(scene->str_map);
-}
+// 	lines = ft_split(map, '\n');
+// 	i = 0;
+// 	while (lines[i])
+// 	{
+// 		printf("%s\n", lines[i]);
+// 		i++;
+// 	}
+// 	free_dp(lines);
+// }
+
+// void	print_rgb(int *rgb)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < 3)
+// 	{
+// 		printf("%d, ", rgb[i]);
+// 		i++;
+// 	}
+// 	printf("\n");
+// }
+
+// void	print_scene(t_scene *scene)
+// {
+// 	printf("NO: %s\n", scene->no);
+// 	printf("SO: %s\n", scene->so);
+// 	printf("WE: %s\n", scene->we);
+// 	printf("EA: %s\n", scene->ea);
+// 	printf("F ");
+// 	print_rgb(scene->f);
+// 	printf("C ");
+// 	print_rgb(scene->c);
+// 	print_map(scene->str_map);
+// }

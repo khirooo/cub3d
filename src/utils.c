@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:36:56 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/28 03:42:44 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:59:23 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	init_scene(t_scene **scene)
-{
-	(*scene) = (t_scene *)malloc(sizeof(t_scene));
-	if (!(*scene))
-		return (1);
-	(*scene)->ea = NULL;
-	(*scene)->so = NULL;
-	(*scene)->we = NULL;
-	(*scene)->no = NULL;
-	(*scene)->f = NULL;
-	(*scene)->c = NULL;
-	(*scene)->str_map = NULL;
-	return (0);
-}
 
 char	*get_n_word(t_scene *scene, char *s, int n)
 {
@@ -50,44 +35,6 @@ char	*get_n_word(t_scene *scene, char *s, int n)
 		word = ft_strtrim(words[n - 1], "\n");
 	free_dp(words);
 	return (word);
-}
-
-int	*get_rgb(char *line)
-{
-	int		*int_rgb;
-	char	**char_rgb;
-	int		i;
-
-	char_rgb = ft_split(line, ',');
-	free(line);
-	int_rgb = (int *)malloc(3 * sizeof(int));
-	if (!char_rgb || !int_rgb)
-		return (NULL);
-	i = 0;
-	while (i < 3 && char_rgb[i] != NULL)
-	{
-		int_rgb[i] = ft_atoi(char_rgb[i]);
-		i++;
-	}
-	if (char_rgb[i] != NULL || i != 3)
-		return (NULL);
-	return (int_rgb);
-}
-
-int	add_to_map(t_scene *scene, char *line)
-{
-	int	i;
-
-	if (scene->c == NULL || scene->f == NULL || scene->ea == NULL
-		|| scene->no == NULL || scene->so == NULL || scene->we == NULL)
-		return (1);
-	i = 0;
-	while (line[i] && line[i] == ' ')
-		i++;
-	if (scene->str_map != NULL && is_empty(line))
-		return (1);
-	scene->str_map = ft_strjoin_withnull(scene->str_map, line, 1);
-	return (0);
 }
 
 int	check_walls_texture(t_scene *scene, char *line, char *type)
@@ -132,15 +79,6 @@ int	update_scene(t_scene *scene, char *line)
 		return (0);
 	else
 		return (1);
-}
-
-void	load_textures(t_scene *scene)
-{
-	scene->text_arr = malloc(sizeof(mlx_texture_t *) * 8);
-	scene->text_arr[0] = mlx_load_png(scene->no);
-	scene->text_arr[1] = mlx_load_png(scene->so);
-	scene->text_arr[2] = mlx_load_png(scene->we);
-	scene->text_arr[3] = mlx_load_png(scene->ea);
 }
 
 t_scene	*fill_scene(t_scene *scene, char *line, int fd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 22:56:37 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/03 17:31:02 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:05:05 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <limits.h>
 # include <fcntl.h>
 
-#define BUFFER_SIZE 1
+# define BUFFER_SIZE 1
 
 char	*get_next_line(int fd);
 int		ft_strlen2(char *s);
