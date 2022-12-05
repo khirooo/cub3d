@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:17:28 by kfergani          #+#    #+#             */
-/*   Updated: 2022/12/05 17:14:28 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 19:48:26 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_global
 	t_window	*wind;
 	t_scene		*scene;
 	int			buffer[WIDTH][HEIGHT];
+	int			mode;
 }	t_global;
 
 void	print_err(char *err);
@@ -128,5 +129,5 @@ int		*get_rgb(char *line);
 int		add_to_map(t_scene *scene, char *line);
 void	load_textures(t_scene *scene);
 int		init_scene(t_scene **scene);
-
+void	switch_scene(t_global *glob);
 #endif

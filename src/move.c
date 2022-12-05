@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 12:25:32 by nkolle            #+#    #+#             */
-/*   Updated: 2022/12/05 17:08:17 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 20:01:35 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	key_hook(mlx_key_data_t keycode, void *globb)
 	t_global	*glob;
 
 	glob = globb;
+	if (keycode.key ==  MLX_KEY_0 && keycode.action == MLX_PRESS)
+		switch_scene(glob);
 	if (keycode.key == MLX_KEY_ESCAPE)
 	{
 		system("kill 0");

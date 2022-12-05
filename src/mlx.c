@@ -6,7 +6,7 @@
 /*   By: kfergani <kfergani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 21:40:13 by kfergani          #+#    #+#             */
-/*   Updated: 2022/11/28 00:17:50 by kfergani         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:47:59 by kfergani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	open_window(t_scene *scene)
 	}
 	glob.wind = wind;
 	glob.scene = scene;
+	glob.mode = 1;
 	set_pos_dir(scene, wind);
 	mlx_key_hook(wind->mlx, &key_hook, (void *)&glob);
 	mlx_loop_hook(wind->mlx, raycast, (void *)&glob);

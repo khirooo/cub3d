@@ -1,11 +1,11 @@
-NO ./textures/Wall/lightspeed.png
-SO ./textures/Wall/lightspeed.png
-WE ./textures/Wall/arrows_right.png
+NO ./textures/Wall/forest.png
+SO ./textures/Wall/forest.png
+WE ./textures/Wall/forest.png
 
 
-F 0,0,0
-EA ./textures/Wall/arrows_right.png
-C 0,0,0
+F 34,139,34
+EA ./textures/Wall/forest.png
+C 135,206,235
 
      111111
     10100011111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
