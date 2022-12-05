@@ -6,7 +6,7 @@
 /*   By: nkolle <nkolle@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 17:04:56 by nkolle            #+#    #+#             */
-/*   Updated: 2022/12/05 16:13:24 by nkolle           ###   ########.fr       */
+/*   Updated: 2022/12/05 19:07:37 by nkolle           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	play_music(void)
 {
-	system("zsh -c \"afplay ./track/long_ver.mp3 &\"");
+	system("zsh -c \"afplay ./track/chillmode.mp3 &\"");
 }
